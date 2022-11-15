@@ -15,19 +15,11 @@ import com.computer.part.processor.Processor;
 import com.computer.part.storage.HDD;
 import com.computer.part.storage.RAM;
 import com.computer.part.storage.Storage;
+import com.util.Utils;
 
 import java.util.Scanner;
 
 public class Main {
-    public static int getInteger() {
-        Scanner sc = new Scanner(System.in);
-        try {
-            return sc.nextInt();
-        } catch (Exception e) {
-            System.out.println("Enter correct option!!!.");
-            return getInteger();
-        }
-    }
 
     public static void main(String[] args) {
 
@@ -42,18 +34,17 @@ public class Main {
 
         Computer computer = null;
 
-        if (motherBoard != null && os != null && storage != null) {
+        if (motherBoard != null && os != null && storage != null && processor != null) {
             computer = new ComputerBuilder(motherBoard, os, storage, ramStorage, processor)
                     .setMonitor(monitor)
                     .setKeyboard(keyboard)
-                    .setNetworkCard(nic)
                     .build();
         }
         if (computer == null) {
             System.out.println("no computer!!!");
         } else {
             System.out.println("1.Power On\n2.Power Off");
-            if (getInteger() == 1) {
+            if (Utils.getInteger() == 1) {
                 System.out.println("Powering On");
                 computer.powerOn();
             } else {

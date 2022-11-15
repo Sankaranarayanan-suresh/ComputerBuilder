@@ -17,7 +17,8 @@ public class Computer {
     private RAM ram;
     private Storage storage;
 
-    public Computer(Monitor monitor, Keyboard keyboards, MotherBoard motherBoard, NetworkCard networkCard, Os os, Storage storage, RAM ram) {
+    public Computer(Monitor monitor, Keyboard keyboards, MotherBoard motherBoard, NetworkCard networkCard, Os os,
+                    Storage storage, RAM ram) {
         this.monitor = monitor;
         this.keyboards = keyboards;
         this.motherBoard = motherBoard;

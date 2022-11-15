@@ -3,7 +3,6 @@ package com.computer.part.monitor;
 public class Led extends Monitor {
     private static int monitorCounter = 0;
     private final String monitorId;
-    ;
     private final String monitorName;
     private final String config;
     private final double price;

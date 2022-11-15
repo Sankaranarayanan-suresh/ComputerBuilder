@@ -61,4 +61,6 @@ public class RAM extends Storage {
     public String getCategory() {
         return "RAM";
     }
+
+
 }

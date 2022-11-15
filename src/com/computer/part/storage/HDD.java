@@ -11,7 +11,7 @@ public class HDD extends Storage {
     private final String HDDName;
     private final String config;
     private final double price;
-    private ArrayList<Application> applications = new ArrayList<Application>();
+    private ArrayList<Application> applications = new ArrayList<>();
 
     public List returnLists() {
         return applications;

@@ -15,7 +15,7 @@ public class ComputerBuilder {
     private Monitor monitor;
     private Keyboard keyboard;
     private MotherBoard motherBoard;
-    private NetworkCard networkCard;
+    private NetworkCard NetworkCard;
     private Os os;
     private RAM ram;
     private Storage storage;
@@ -35,7 +35,7 @@ public class ComputerBuilder {
     }
 
     public ComputerBuilder setNetworkCard(NetworkCard networkCard) {
-        this.networkCard = networkCard;
+        this.NetworkCard = networkCard;
         return this;
     }
 
@@ -56,7 +56,7 @@ public class ComputerBuilder {
                 continue;
             this.motherBoard.addPart((ComputerParts) part);
         }
-        return new Computer(monitor, keyboard, motherBoard, networkCard, os, storage, ram);
+        return new Computer(monitor, keyboard, motherBoard, NetworkCard, os, storage, ram);
 
 
 //        if(monitor != null && keyboard != null && motherBoard != null){

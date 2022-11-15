@@ -32,7 +32,11 @@ public abstract class MotherBoard implements ComputerParts, OsInterface {
             try {
                 Thread.sleep(600);
                 print(mapElement.getValue().getCategory() + " is checked");
-                os = (Os) computerParts.get("OS");
+                if (mapElement.getValue() instanceof Os){
+                    os = (Os) mapElement.getValue();
+                } else if (mapElement.getValue() instanceof Monitor) {
+                    monitor = (Monitor) mapElement.getValue();
+                }
             } catch (Exception e) {
 
             }
@@ -45,12 +49,11 @@ public abstract class MotherBoard implements ComputerParts, OsInterface {
         os.boot();
     }
 
-    public HashMap getParts() {
+    public HashMap<String, ComputerParts> getParts() {
         return computerParts;
     }
 
     public void print(String text) {
-        monitor = (Monitor) computerParts.get("Monitor");
         this.monitor.display(text);
     }
 
@@ -61,7 +64,11 @@ public abstract class MotherBoard implements ComputerParts, OsInterface {
     @Override
     public String getInput() {
         keyboard = (Keyboard) computerParts.get("Keyboard");
-        return keyboard.getInput();
+        if(keyboard != null) {
+            return keyboard.getInput();
+        }
+//        print("No Keyboard found.");
+        return null;
     }
 
     public void loadApplication(Application app) {
