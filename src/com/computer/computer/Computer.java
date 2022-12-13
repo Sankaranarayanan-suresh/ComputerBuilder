@@ -1,12 +1,12 @@
 package com.computer.computer;
 
-import com.computer.part.keyboard.Keyboard;
-import com.computer.part.monitor.Monitor;
-import com.computer.part.motherboard.MotherBoard;
-import com.computer.part.networkcard.NetworkCard;
-import com.computer.part.os.Os;
-import com.computer.part.storage.RAM.DDR3;
-import com.computer.part.storage.Storage;
+import com.computer.hardware.part.keyboard.Keyboard;
+import com.computer.hardware.part.monitor.Monitor;
+import com.computer.hardware.part.motherboard.MotherBoard;
+import com.computer.hardware.part.networkcard.NetworkCard;
+import com.computer.software.os.Os;
+import com.computer.hardware.part.storage.RAM.DDR3;
+import com.computer.hardware.part.storage.Storage;
 
 public class Computer {
     private final Monitor monitor;
