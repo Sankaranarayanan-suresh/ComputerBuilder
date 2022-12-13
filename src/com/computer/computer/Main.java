@@ -12,12 +12,10 @@ import com.computer.part.os.Mac;
 import com.computer.part.os.Os;
 import com.computer.part.processor.Intel;
 import com.computer.part.processor.Processor;
-import com.computer.part.storage.HDD;
-import com.computer.part.storage.RAM;
+import com.computer.part.storage.ROM.HDD;
+import com.computer.part.storage.RAM.DDR3;
 import com.computer.part.storage.Storage;
 import com.util.Utils;
-
-import java.util.Scanner;
 
 public class Main {
 
@@ -30,7 +28,7 @@ public class Main {
         Os os = new Mac("XP", "sdh", 1000, motherBoard);
         Storage storage = new HDD("seagate", "5TB", 1000);
         Processor processor = new Intel("intel", "dualcore", 1000);
-        RAM ramStorage = new RAM("seagate", "5TB", 1000, processor);
+        DDR3 ramStorage = new DDR3("seagate", "5TB", 1000);
 
         Computer computer = null;
 
@@ -38,12 +36,13 @@ public class Main {
             computer = new ComputerBuilder(motherBoard, os, storage, ramStorage, processor)
                     .setMonitor(monitor)
                     .setKeyboard(keyboard)
+                    .setNetworkCard(nic)
                     .build();
         }
         if (computer == null) {
             System.out.println("no computer!!!");
         } else {
-            System.out.println("1.Power On\n2.Power Off");
+            System.out.println("1.Power On");
             if (Utils.getInteger() == 1) {
                 System.out.println("Powering On");
                 computer.powerOn();

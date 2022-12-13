@@ -1,7 +1,10 @@
 package com.computer.part.motherboard;
 
+import java.time.LocalTime;
+
+import static java.lang.Math.abs;
+
 public class AtxMotherBoard extends MotherBoard {
-    private static int atxMotherBoardCounter = 0;
     private final String atxMotherBoardId;
     private final String atxMotherBoardName;
     private final String config;
@@ -9,23 +12,16 @@ public class AtxMotherBoard extends MotherBoard {
 
     @Override
     public String toString() {
-        return "AtxMotherBoard{" +
-                ", atxMotherBoardId='" + atxMotherBoardId + '\'' +
-                ", atxMotherBoardName='" + atxMotherBoardName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
+        return "atxMotherBoardId='" + atxMotherBoardId + '\n' +
+                "atxMotherBoardName='" + atxMotherBoardName + '\n' +
+                "config='" + config + '\n';
     }
 
     public AtxMotherBoard(String motherBoardName, String config, double price) {
-        this.atxMotherBoardId = "ATX/" + ++atxMotherBoardCounter;
+        this.atxMotherBoardId = "MBATX-" + abs(this.hashCode());
         this.atxMotherBoardName = motherBoardName;
         this.config = config;
         this.price = price;
-    }
-
-    @Override
-    public String getType() {
-        return this.getClass().getName();
     }
 
     @Override

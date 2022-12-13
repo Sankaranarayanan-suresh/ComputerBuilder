@@ -1,8 +1,6 @@
 package com.computer.computer;
 
 public interface ComputerParts {
-    String getType();
-
     String getName();
 
     String getConfig();

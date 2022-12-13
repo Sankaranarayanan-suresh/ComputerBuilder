@@ -1,42 +1,41 @@
-package com.computer.part.storage;
+package com.computer.part.storage.RAM;
 
 import com.computer.applications.Application;
 import com.computer.part.processor.ProcessorInterface;
+import com.computer.part.storage.Storage;
 
-public class RAM extends Storage {
-    private static int RAMCounter = 0;
+import static java.lang.Math.abs;
+
+public class DDR3 extends RAM {
     private final String RAMId;
     private final String RAMName;
     private final String config;
     private final double price;
-    ProcessorInterface processorInterface;
+    private  Application application;
 
-    public RAM(String RAMName, String config, double price, ProcessorInterface processor) {
-        this.RAMId = "RAM/" + ++RAMCounter;
+
+    public DDR3(String RAMName, String config, double price) {
+        this.RAMId = "RAMDDR3-" + abs(this.hashCode());
         this.RAMName = RAMName;
         this.config = config;
         this.price = price;
-        this.processorInterface = processor;
     }
 
     @Override
     public String toString() {
-        return "RAM{" +
-                "RAMId='" + RAMId + '\'' +
-                ", RAMName='" + RAMName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
+        return  "RAMId='" + RAMId + '\n' +
+                "RAMName='" + RAMName + '\n' +
+                "config='" + config + '\n';
     }
 
-    public void runApplication(Application application) {
-        processorInterface.runApp(application);
+    public void storeApplication(Application application) {
+       this.application = application;
     }
 
     @Override
-    public String getType() {
-        return "RAM";
+    public Application fetchApp(Application app) {
+        return this.application;
     }
-
     @Override
     public String getName() {
         return RAMName;

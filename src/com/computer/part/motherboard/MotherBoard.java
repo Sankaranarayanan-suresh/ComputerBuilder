@@ -7,9 +7,11 @@ import com.computer.part.monitor.Monitor;
 import com.computer.part.networkcard.NetworkCard;
 import com.computer.part.os.Os;
 import com.computer.part.os.OsInterface;
-import com.computer.part.storage.HDD;
-import com.computer.part.storage.RAM;
+import com.computer.part.processor.Processor;
+import com.computer.part.storage.RAM.RAM;
+import com.computer.part.storage.ROM.ROM;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +19,12 @@ import java.util.Map;
 public abstract class MotherBoard implements ComputerParts, OsInterface {
     private Monitor monitor;
     private Os os;
-    private HDD hdd;
+    private ROM rom;
     private RAM ram;
     private Keyboard keyboard;
     private NetworkCard networkCard;
-    public HashMap<String, ComputerParts> computerParts = new HashMap<String, ComputerParts>();
+    private Processor processor;
+    public HashMap<String, ComputerParts> computerParts = new HashMap<>();
 
     public void addPart(ComputerParts computerPart) {
         computerParts.put(computerPart.getCategory(), computerPart);
@@ -31,13 +34,23 @@ public abstract class MotherBoard implements ComputerParts, OsInterface {
         for (Map.Entry<String, ComputerParts> mapElement : computerParts.entrySet()) {
             try {
                 Thread.sleep(600);
-                print(mapElement.getValue().getCategory() + " is checked");
-                if (mapElement.getValue() instanceof Os){
+                System.out.println(mapElement.getValue().getCategory() + " is checked");
+                if (mapElement.getValue() instanceof Os) {
                     os = (Os) mapElement.getValue();
                 } else if (mapElement.getValue() instanceof Monitor) {
                     monitor = (Monitor) mapElement.getValue();
+                } else if (mapElement.getValue() instanceof Keyboard) {
+                    keyboard = (Keyboard) mapElement.getValue();
+                } else if (mapElement.getValue() instanceof ROM) {
+                    rom = (ROM) mapElement.getValue();
+                } else if (mapElement.getValue() instanceof RAM) {
+                    ram = (RAM) mapElement.getValue();
+                } else if (mapElement.getValue() instanceof NetworkCard) {
+                    networkCard = (NetworkCard) mapElement.getValue();
+                } else if (mapElement.getValue() instanceof Processor) {
+                    processor = (Processor) mapElement.getValue();
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
         }
@@ -49,8 +62,8 @@ public abstract class MotherBoard implements ComputerParts, OsInterface {
         os.boot();
     }
 
-    public HashMap<String, ComputerParts> getParts() {
-        return computerParts;
+    public Collection<ComputerParts> getParts() {
+        return computerParts.values();
     }
 
     public void print(String text) {
@@ -63,37 +76,36 @@ public abstract class MotherBoard implements ComputerParts, OsInterface {
 
     @Override
     public String getInput() {
-        keyboard = (Keyboard) computerParts.get("Keyboard");
-        if(keyboard != null) {
+        if (keyboard != null) {
             return keyboard.getInput();
         }
-//        print("No Keyboard found.");
+        print("No Keyboard found.");
         return null;
+    }
+    public void startApplication(Application application){
+        Application app = ram.fetchApp(application);
+        processor.runApp(app);
     }
 
     public void loadApplication(Application app) {
-        hdd.addApplication(app);
+        rom.addApplication(app);
     }
 
     public boolean checkNetStatus() {
-        networkCard = (NetworkCard) computerParts.get("Network card");
-        if(networkCard != null) {
+        if (networkCard != null) {
             return networkCard.status();
         }
-        print("NO Network-Card found. ");
+        System.out.println("NO Network-Card found. ");
         return false;
     }
-
     @Override
     public void loadToRam(Application application) {
-        ram = (RAM) computerParts.get("RAM");
-        ram.runApplication(application);
+        ram.storeApplication(application);
     }
 
     @Override
     public List fetchList() {
-        hdd = (HDD) computerParts.get("Storage");
-        return hdd.returnLists();
+        return rom.returnLists();
     }
 
     @Override

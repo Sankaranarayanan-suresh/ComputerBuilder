@@ -1,14 +1,16 @@
 package com.computer.part.keyboard;
 
+import java.time.LocalTime;
+
+import static java.lang.Math.abs;
+
 public class Qwerty extends Keyboard {
-    private static int QwertyKeyboardCounter = 0;
     private final String QwertyKeyboardId;
     private final String QwertyKeyboardName;
     private final String config;
     private final double price;
-
     public Qwerty(String keyboardName, String config, double price) {
-        this.QwertyKeyboardId = "QWERTY/" + ++QwertyKeyboardCounter;
+        this.QwertyKeyboardId = "KBQW-" + abs(this.hashCode()) ;
         this.QwertyKeyboardName = keyboardName;
         this.config = config;
         this.price = price;
@@ -16,16 +18,9 @@ public class Qwerty extends Keyboard {
 
     @Override
     public String toString() {
-        return "Qwerty{" +
-                "QwertyKeyboardId='" + QwertyKeyboardId + '\'' +
-                ", QwertyKeyboardName='" + QwertyKeyboardName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
-    }
-
-    @Override
-    public String getType() {
-        return "Qwerty";
+        return  "QwertyKeyboardId='" + QwertyKeyboardId + '\n' +
+                "QwertyKeyboardName='" + QwertyKeyboardName + '\n' +
+                "config='" + config + '\n';
     }
 
     @Override

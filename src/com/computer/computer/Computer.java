@@ -5,20 +5,20 @@ import com.computer.part.monitor.Monitor;
 import com.computer.part.motherboard.MotherBoard;
 import com.computer.part.networkcard.NetworkCard;
 import com.computer.part.os.Os;
-import com.computer.part.storage.RAM;
+import com.computer.part.storage.RAM.DDR3;
 import com.computer.part.storage.Storage;
 
 public class Computer {
-    private Monitor monitor;
-    private Keyboard keyboards;
-    private MotherBoard motherBoard;
-    private NetworkCard networkCard;
-    private Os os;
-    private RAM ram;
-    private Storage storage;
+    private final Monitor monitor;
+    private final Keyboard keyboards;
+    private final MotherBoard motherBoard;
+    private final NetworkCard networkCard;
+    private final Os os;
+    private final DDR3 ram;
+    private final Storage storage;
 
     public Computer(Monitor monitor, Keyboard keyboards, MotherBoard motherBoard, NetworkCard networkCard, Os os,
-                    Storage storage, RAM ram) {
+                    Storage storage, DDR3 ram) {
         this.monitor = monitor;
         this.keyboards = keyboards;
         this.motherBoard = motherBoard;
@@ -32,7 +32,7 @@ public class Computer {
     public String toString() {
         return "Computer{" +
                 "monitor=" + monitor.getId() +
-                ", keyboards=" + keyboards.getId() +
+                " keyboards=" + keyboards.getId() +
                 ", motherBoard=" + motherBoard.getId() +
                 ", networkCard=" + networkCard.getId() +
                 ", os=" + os.getId() +

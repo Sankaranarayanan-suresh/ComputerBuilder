@@ -2,8 +2,9 @@ package com.computer.part.os;
 
 import com.computer.part.motherboard.MotherBoard;
 
+import static java.lang.Math.abs;
+
 public class Mac extends Os {
-    private static int macOsCounter = 0;
     private final String macOsId;
     private final String macOsName;
     private final String config;
@@ -11,7 +12,7 @@ public class Mac extends Os {
 
     public Mac(String macOsName, String config, double price, MotherBoard motherBoard) {
         super(motherBoard);
-        this.macOsId = "Mac/" + ++macOsCounter;
+        this.macOsId = "OSMAC-" + abs(this.hashCode());
         this.macOsName = macOsName;
         this.config = config;
         this.price = price;
@@ -19,16 +20,9 @@ public class Mac extends Os {
 
     @Override
     public String toString() {
-        return "Mac{" +
-                "macOsId='" + macOsId + '\'' +
-                ", macOsName='" + macOsName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
-    }
-
-    @Override
-    public String getType() {
-        return "Mac";
+        return  "macOsId='" + macOsId + '\n' +
+                "macOsName='" + macOsName + '\n' +
+                "config='" + config + '\n';
     }
 
     @Override

@@ -27,8 +27,7 @@ public class Calculator implements Application {
 
     private Object calculate(String input) throws ScriptException {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
-        Object result = engine.eval(input);
-        return result;
+        return engine.eval(input);
     }
 
     @Override

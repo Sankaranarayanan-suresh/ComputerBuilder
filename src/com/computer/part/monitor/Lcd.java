@@ -1,7 +1,8 @@
 package com.computer.part.monitor;
 
+import static java.lang.Math.abs;
+
 public class Lcd extends Monitor {
-    private static int monitorCounter = 0;
     private final String monitorId;
     private final String monitorName;
     private final String config;
@@ -9,23 +10,16 @@ public class Lcd extends Monitor {
 
     @Override
     public String toString() {
-        return "Lcd{" +
-                ", monitorId='" + monitorId + '\'' +
-                ", monitorName='" + monitorName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
+        return  "monitorId='" + monitorId + '\n' +
+                "monitorName='" + monitorName + '\n' +
+                "config='" + config + '\n';
     }
 
     public Lcd(String monitorName, String config, double price) {
-        this.monitorId = "LCD/" + ++monitorCounter;
+        this.monitorId = "MNLCD-" + abs(this.hashCode());
         this.monitorName = monitorName;
         this.config = config;
         this.price = price;
-    }
-
-    @Override
-    public String getType() {
-        return "Lcd";
     }
 
     @Override

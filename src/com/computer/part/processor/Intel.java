@@ -1,31 +1,24 @@
 package com.computer.part.processor;
 
+import static java.lang.Math.abs;
+
 public class Intel extends Processor {
-    private static int intelPCounter = 0;
     private final String processorId;
     private final String processorName;
     private final String config;
     private final double price;
 
     public Intel(String processorName, String config, double price) {
-        this.processorId = "Mac/" + ++intelPCounter;
+        this.processorId = "PROCIN-" + abs(this.hashCode());
         this.processorName = processorName;
         this.config = config;
         this.price = price;
     }
-
     @Override
     public String toString() {
-        return "Intel{" +
-                "processorId='" + processorId + '\'' +
-                ", processorName='" + processorName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
-    }
-
-    @Override
-    public String getType() {
-        return null;
+        return  "processorId='" + processorId + '\n' +
+                "processorName='" + processorName + '\n' +
+                "config='" + config + '\n' ;
     }
 
     @Override

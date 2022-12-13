@@ -1,16 +1,17 @@
 package com.computer.part.keyboard;
 
-import com.computer.part.motherboard.MotherBoard;
+import java.time.LocalTime;
+
+import static java.lang.Math.abs;
 
 public class Mechanical extends Keyboard {
-    private static int MecKeyboardCounter = 0;
     private final String MecKeyboardId;
     private final String MecKeyboardName;
     private final String config;
     private final double price;
 
-    public Mechanical(String keyboardName, String config, double price, MotherBoard motherBoard) {
-        this.MecKeyboardId = "MEC/" + ++MecKeyboardCounter;
+    public Mechanical(String keyboardName, String config, double price) {
+        this.MecKeyboardId = "KBMC-" + abs(this.hashCode());
         this.MecKeyboardName = keyboardName;
         this.config = config;
         this.price = price;
@@ -18,16 +19,9 @@ public class Mechanical extends Keyboard {
 
     @Override
     public String toString() {
-        return "Mechanical{" +
-                "MecKeyboardId='" + MecKeyboardId + '\'' +
-                ", MecKeyboardName='" + MecKeyboardName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
-    }
-
-    @Override
-    public String getType() {
-        return "Mechanical";
+        return  "MecKeyboardId='" + MecKeyboardId + '\n' +
+                "MecKeyboardName='" + MecKeyboardName + '\n' +
+                "config='" + config + '\n';
     }
 
     @Override

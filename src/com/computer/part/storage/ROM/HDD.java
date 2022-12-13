@@ -1,12 +1,14 @@
-package com.computer.part.storage;
+package com.computer.part.storage.ROM;
 
 import com.computer.applications.Application;
+import com.computer.part.storage.ROM.ROM;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HDD extends Storage {
-    private static int HDDCounter = 0;
+import static java.lang.Math.abs;
+
+public class HDD extends ROM {
     private final String HDDId;
     private final String HDDName;
     private final String config;
@@ -18,7 +20,7 @@ public class HDD extends Storage {
     }
 
     public HDD(String HDDName, String config, double price) {
-        this.HDDId = "HDD/" + ++HDDCounter;
+        this.HDDId = "ROMHDD-" + abs(this.hashCode());
         this.HDDName = HDDName;
         this.config = config;
         this.price = price;
@@ -26,20 +28,13 @@ public class HDD extends Storage {
 
     @Override
     public String toString() {
-        return "HDD{" +
-                "HDDId='" + HDDId + '\'' +
-                ", HDDName='" + HDDName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
+        return  "HDDId='" + HDDId + '\n' +
+                "HDDName='" + HDDName + '\n' +
+                "config='" + config + '\n' ;
     }
 
     public void addApplication(Application app) {
         applications.add(app);
-    }
-
-    @Override
-    public String getType() {
-        return "HDD";
     }
 
     @Override

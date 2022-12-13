@@ -6,7 +6,7 @@ import com.computer.part.motherboard.MotherBoard;
 import com.computer.part.networkcard.NetworkCard;
 import com.computer.part.os.Os;
 import com.computer.part.processor.Processor;
-import com.computer.part.storage.RAM;
+import com.computer.part.storage.RAM.DDR3;
 import com.computer.part.storage.Storage;
 
 import java.lang.reflect.Field;
@@ -17,11 +17,11 @@ public class ComputerBuilder {
     private MotherBoard motherBoard;
     private NetworkCard NetworkCard;
     private Os os;
-    private RAM ram;
+    private DDR3 ram;
     private Storage storage;
     private Processor processor;
 
-    public ComputerBuilder(MotherBoard motherBoard, Os os, Storage storage, RAM ram, Processor processor) {
+    public ComputerBuilder(MotherBoard motherBoard, Os os, Storage storage, DDR3 ram, Processor processor) {
         this.storage = storage;
         this.os = os;
         this.motherBoard = motherBoard;

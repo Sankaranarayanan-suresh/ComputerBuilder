@@ -2,8 +2,9 @@ package com.computer.part.os;
 
 import com.computer.part.motherboard.MotherBoard;
 
+import static java.lang.Math.abs;
+
 public class Windows extends Os {
-    private static int WindowsOsCount = 0;
     private final String WindowsOsId;
     private final String WindowsOsName;
     private final String config;
@@ -11,7 +12,7 @@ public class Windows extends Os {
 
     public Windows(String WindowsOsName, String config, double price, MotherBoard motherBoard) {
         super(motherBoard);
-        this.WindowsOsId = "Windows/" + ++WindowsOsCount;
+        this.WindowsOsId = "OSWIN-" + abs(this.hashCode());
         this.WindowsOsName = WindowsOsName;
         this.config = config;
         this.price = price;
@@ -19,16 +20,9 @@ public class Windows extends Os {
 
     @Override
     public String toString() {
-        return "Windows{" +
-                "WindowsOsId='" + WindowsOsId + '\'' +
-                ", WindowsOsName='" + WindowsOsName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
-    }
-
-    @Override
-    public String getType() {
-        return "Windows";
+        return  "WindowsOsId='" + WindowsOsId + '\n' +
+                "WindowsOsName='" + WindowsOsName + '\n' +
+                "config='" + config + '\n' ;
     }
 
     @Override

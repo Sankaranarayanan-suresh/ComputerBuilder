@@ -4,10 +4,9 @@ import com.computer.applications.Application;
 import com.computer.applications.Calculator;
 import com.computer.applications.GSearch;
 import com.computer.computer.ComputerParts;
-import com.sun.xml.internal.bind.v2.TODO;
 
-import java.util.HashMap;
-import java.util.List;
+
+import java.util.*;
 
 public abstract class Os implements ComputerParts, ApplicationInterface {
     private boolean shutDown = true;
@@ -32,10 +31,10 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         return osInterface.getInput();
     }
 
-    public  void driverFunction() {
+    public void driverFunction() {
         while (shutDown) {
             osInterface.putInput("1.Show List of Applications\n2.Settings\n3.Shut down");
-                makeDecision(fetchInput());
+            makeDecision(fetchInput());
         }
     }
 
@@ -44,11 +43,11 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     }
 
     private void makeDecision(String input) {
-        try{
+        try {
             switch (input) {
                 case "1": {
                     showListOfApps();
-                    osInterface.putInput("Select Any Option");
+                    //load all applications into RAM.
                     loadApplication();
                     break;
                 }
@@ -58,60 +57,94 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
                 }
                 case "3":
                     osInterface.putInput("Shutting Down......");
-                    // shutdownm name maathanu.
+                    // shutdown name change.
                     shutDown = false;
                     break;
                 default:
                     osInterface.putInput("Cannot perform that action.");
                     break;
             }
-        }catch (Exception e){
+        } catch (InputMismatchException e) {
             osInterface.putInput("ADD part keyboard.");
         }
     }
-    private void settings(){
-        osInterface.putInput("1.Network\n2.About PC");
-        String option = fetchInput();
-        if (option.equals("1")) {
-            boolean netStatus = checkNetworkStatus();
-            if (netStatus) {
-                String status = netStatus ? "Off" : "On";
-                osInterface.putInput("1.Turn-" + status + " Network\n2.Exit");
-                String netOption = fetchInput();
-                if (netOption.equals("1")) {
-                    osInterface.updateNetwork();
-                } else if (netOption.equals("2")) {
-                    //exit.....
-                } else {
-                    osInterface.putInput("Cannot perform that action.");
-                }
-            }
-        } else if (option.equals("2")) {
-            HashMap part = osInterface.getParts();
-            for (Object mapElement : part.entrySet()) {
-                try {
-                    Thread.sleep(600);
-                    osInterface.putInput(mapElement.toString());
-                } catch (Exception e) {
 
-                }
-            }
+    private void settings() {
+        label:
+        while (true) {
+            osInterface.putInput("1.Network\n2.About PC\n3.Exit");
+            String option = fetchInput();
+            switch (option) {
+                case "1":
+                    boolean netStatus = checkNetworkStatus();
+                    if (netStatus) {
+                        String status = "Off";
+                        osInterface.putInput("1.Turn-" + status + " Network\n2.Exit");
+                        String netOption = fetchInput();
+                        if (netOption.equals("1")) {
+                            osInterface.updateNetwork();
+                        } else if (netOption.equals("2")) {
+                            //exit.....
+                        } else {
+                            osInterface.putInput("Cannot perform that action.");
+                        }
+                    } else {
+                        String status = "On";
+                        osInterface.putInput("1.Turn-" + status + " Network\n2.Exit");
+                        String netOption = fetchInput();
+                        if (netOption.equals("1")) {
+                            osInterface.updateNetwork();
+                        } else if (netOption.equals("2")) {
+                            //exit.....
+                        } else {
+                            osInterface.putInput("Cannot perform that action.");
+                        }
+                    }
+                    break;
+                case "2":
+                    Collection<ComputerParts> part = osInterface.getParts();
+                    for (Object mapElement : part) {
+                        try {
+                            Thread.sleep(300);
+                            osInterface.putInput(mapElement.toString());
+                        } catch (Exception ignored) {
 
+                        }
+                    }
+
+                    break;
+                case "3":
+                    break label;
+            }
         }
     }
-    private void loadApplication(){
+
+//this function is used to load application into RAM based on user input.
+    private void loadApplication() {
         String option = fetchInput();
-        if (option.equals("1")) {
-            Application application = x.get(0);
-            load(application);
-        } else if (option.equals("2")) {
-            Application application = x.get(1);
-            load(application);
-        } else {
-            osInterface.putInput("Cannot perform that action.");
+        switch (option) {
+            case "1": {
+                Application application = x.get(0);
+                load(application);
+                initiateApplication(application);
+                break;
+            }
+            case "2": {
+                Application application = x.get(1);
+                load(application);
+                initiateApplication(application);
+                break;
+            }
+            case "3":
+                break;
+            default:
+                osInterface.putInput("Cannot perform that action.");
+                break;
         }
     }
-
+    private void initiateApplication(Application application){
+        osInterface.startApplication(application);
+    }
     private void load(Application application) {
         osInterface.loadToRam(application);
     }
@@ -121,10 +154,11 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         try {
             Thread.sleep(1000);
             System.out.println("BOOT PROCESS COMPLETE...\n");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         x = osInterface.fetchList();
+        // this function is used to load all the application when the computer is turned on.
         loadAllApps();
     }
 
@@ -134,9 +168,11 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     }
 
     private void showListOfApps() {
-        for (int i = 0; i < x.size(); i++) {
+        int i;
+        for (i = 0; i < x.size(); i++) {
             System.out.println(i + 1 + "." + x.get(i).getName());
         }
+        System.out.println(i + 1 + "." + "Exit");
     }
 
     @Override

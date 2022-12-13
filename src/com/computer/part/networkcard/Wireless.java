@@ -1,7 +1,8 @@
 package com.computer.part.networkcard;
 
+import static java.lang.Math.abs;
+
 public class Wireless extends NetworkCard {
-    private static int WiredCardCounter = 0;
     private boolean status;
     private String WiredCardId;
     private String WiredCardName;
@@ -9,7 +10,7 @@ public class Wireless extends NetworkCard {
     private double price;
 
     public Wireless(String WiredCardName, String config, double price) {
-        this.WiredCardId = "NIC/" + ++WiredCardCounter;
+        this.WiredCardId = "NCWL-" + abs(this.hashCode());
         this.WiredCardName = WiredCardName;
         this.config = config;
         this.price = price;
@@ -17,18 +18,10 @@ public class Wireless extends NetworkCard {
 
     @Override
     public String toString() {
-        return "Wireless{" +
-                ", WiredCardId='" + WiredCardId + '\'' +
-                ", WiredCardName='" + WiredCardName + '\'' +
-                ", config='" + config + '\'' +
-                '}';
+        return  "WiredCardId='" + WiredCardId + '\n' +
+                "WiredCardName='" + WiredCardName + '\n' +
+                "config='" + config + '\n' ;
     }
-
-    @Override
-    public String getType() {
-        return "Wireless";
-    }
-
     @Override
     public String getName() {
         return WiredCardName;
