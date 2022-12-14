@@ -16,7 +16,8 @@ public class Qwerty extends Keyboard {
 
     @Override
     public String toString() {
-        return  "QwertyKeyboardId='" + QwertyKeyboardId + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "QwertyKeyboardId='" + QwertyKeyboardId + '\n' +
                 "QwertyKeyboardName='" + QwertyKeyboardName + '\n' +
                 "config='" + config + '\n';
     }
@@ -34,10 +35,5 @@ public class Qwerty extends Keyboard {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return QwertyKeyboardId;
     }
 }

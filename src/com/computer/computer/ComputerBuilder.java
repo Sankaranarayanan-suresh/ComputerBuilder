@@ -4,25 +4,26 @@ import com.computer.hardware.part.keyboard.Keyboard;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.motherboard.MotherBoard;
 import com.computer.hardware.part.networkcard.NetworkCard;
+import com.computer.hardware.part.storage.RAM.RAM;
+import com.computer.hardware.part.storage.ROM.ROM;
 import com.computer.software.os.Os;
 import com.computer.hardware.part.processor.Processor;
-import com.computer.hardware.part.storage.RAM.DDR3;
-import com.computer.hardware.part.storage.Storage;
+import com.computer.hardware.part.storage.ROM.ROM;
 
 import java.lang.reflect.Field;
 
 public class ComputerBuilder {
     private Monitor monitor;
     private Keyboard keyboard;
-    private MotherBoard motherBoard;
+    private final MotherBoard motherBoard;
     private NetworkCard NetworkCard;
-    private Os os;
-    private DDR3 ram;
-    private Storage storage;
-    private Processor processor;
+    private final Os os;
+    private final RAM ram;
+    private final ROM ROM;
+    private final Processor processor;
 
-    public ComputerBuilder(MotherBoard motherBoard, Os os, Storage storage, DDR3 ram, Processor processor) {
-        this.storage = storage;
+    public ComputerBuilder(MotherBoard motherBoard, Os os, ROM ROM, RAM ram, Processor processor) {
+        this.ROM = ROM;
         this.os = os;
         this.motherBoard = motherBoard;
         this.ram = ram;
@@ -56,7 +57,7 @@ public class ComputerBuilder {
                 continue;
             this.motherBoard.addPart((ComputerParts) part);
         }
-        return new Computer(monitor, keyboard, motherBoard, NetworkCard, os, storage, ram);
+        return new Computer(monitor, keyboard, motherBoard, NetworkCard, os, ROM, ram, processor);
 
 
 //        if(monitor != null && keyboard != null && motherBoard != null){

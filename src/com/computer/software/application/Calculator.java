@@ -1,20 +1,12 @@
 package com.computer.software.application;
 
 import com.computer.software.os.ApplicationInterface;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-
 public class Calculator implements Application {
     private final String applicationName = "Calculator";
     private final String version = "1.0";
-    private final ApplicationInterface sys;
-
-    public Calculator(ApplicationInterface sys) {
-        this.sys = sys;
-    }
-
     @Override
     public String getName() {
         return applicationName;
@@ -31,7 +23,7 @@ public class Calculator implements Application {
     }
 
     @Override
-    public void run() {
+    public void run(ApplicationInterface sys) {
         while (true) {
             sys.puts("Enter an equation or press 0 to exit the application");
             String equ = sys.gets();

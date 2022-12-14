@@ -20,8 +20,9 @@ public class Windows extends Os {
 
     @Override
     public String toString() {
-        return  "WindowsOsId='" + WindowsOsId + '\n' +
-                "WindowsOsName='" + WindowsOsName + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "OsId='" + WindowsOsId + '\n' +
+                "Name='" + WindowsOsName + '\n' +
                 "config='" + config + '\n' ;
     }
 
@@ -38,10 +39,5 @@ public class Windows extends Os {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return WindowsOsId;
     }
 }

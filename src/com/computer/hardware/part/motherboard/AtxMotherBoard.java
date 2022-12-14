@@ -10,9 +10,10 @@ public class AtxMotherBoard extends MotherBoard {
 
     @Override
     public String toString() {
-        return "atxMotherBoardId='" + atxMotherBoardId + '\n' +
-                "atxMotherBoardName='" + atxMotherBoardName + '\n' +
-                "config='" + config + '\n';
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "MotherBoardId=" + atxMotherBoardId + '\n' +
+                "MotherBoardName=" + atxMotherBoardName + '\n' +
+                "config=" + config + '\n';
     }
 
     public AtxMotherBoard(String motherBoardName, String config, double price) {
@@ -35,10 +36,5 @@ public class AtxMotherBoard extends MotherBoard {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return atxMotherBoardId;
     }
 }

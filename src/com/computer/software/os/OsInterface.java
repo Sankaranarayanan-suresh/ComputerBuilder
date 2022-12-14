@@ -1,18 +1,17 @@
 package com.computer.software.os;
 
-import com.computer.software.application.Application;
-import com.computer.computer.ComputerParts;
-
-import java.util.Collection;
+import com.computer.software.application.*;
 import java.util.List;
 
 public interface OsInterface {
-    Collection<ComputerParts> getParts();
+    String getOverallConfiguration();
 
     void updateNetwork();
-    void startApplication(Application application);
 
-    List<Application> fetchList();
+    void startApplication(Application application,ApplicationInterface sys);
+    void deleteAppFromRam();
+
+    List<Application> fetchApplications();
 
     String getInput();
 

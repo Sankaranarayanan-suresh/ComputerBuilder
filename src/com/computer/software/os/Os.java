@@ -1,10 +1,9 @@
 package com.computer.software.os;
 
 import com.computer.software.application.Application;
+import com.computer.computer.ComputerParts;
 import com.computer.software.application.Calculator;
 import com.computer.software.application.GSearch;
-import com.computer.computer.ComputerParts;
-
 
 import java.util.*;
 
@@ -33,7 +32,7 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
 
     public void driverFunction() {
         while (shutDown) {
-            osInterface.putInput("1.Show List of Applications\n2.Settings\n3.Shut down");
+            osInterface.putInput("1.Launch Pad\n2.Settings\n3.Shut down");
             makeDecision(fetchInput());
         }
     }
@@ -46,9 +45,32 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         try {
             switch (input) {
                 case "1": {
-                    showListOfApps();
+                    launchPad();
                     //load all applications into RAM.
-                    loadApplication();
+                    String option = fetchInput();
+                    switch (option) {
+                        case "1": {
+                            //loading calculator application
+                            Application application = x.get(0);
+                            loadApplication(application);
+                            initiateApplication(application);
+                            closeApplication();
+                            break;
+                        }
+                        case "2": {
+                            //loading gSearch application
+                            Application application = x.get(1);
+                            loadApplication(application);
+                            initiateApplication(application);
+                            closeApplication();
+                            break;
+                        }
+                        case "3":
+                            break;
+                        default:
+                            osInterface.putInput("Cannot perform that action.");
+                            break;
+                    }
                     break;
                 }
                 case "2": {
@@ -84,7 +106,7 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
                         if (netOption.equals("1")) {
                             osInterface.updateNetwork();
                         } else if (netOption.equals("2")) {
-                            //exit.....
+                            continue;
                         } else {
                             osInterface.putInput("Cannot perform that action.");
                         }
@@ -95,23 +117,19 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
                         if (netOption.equals("1")) {
                             osInterface.updateNetwork();
                         } else if (netOption.equals("2")) {
-                            //exit.....
+                            continue;
                         } else {
                             osInterface.putInput("Cannot perform that action.");
                         }
                     }
                     break;
                 case "2":
-                    Collection<ComputerParts> part = osInterface.getParts();
-                    for (Object mapElement : part) {
-                        try {
-                            Thread.sleep(300);
-                            osInterface.putInput(mapElement.toString());
-                        } catch (Exception ignored) {
+                    try {
+                        Thread.sleep(300);
+                        osInterface.putInput(osInterface.getOverallConfiguration());
+                    } catch (Exception ignored) {
 
-                        }
                     }
-
                     break;
                 case "3":
                     break label;
@@ -119,64 +137,46 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         }
     }
 
-//this function is used to load application into RAM based on user input.
-    private void loadApplication() {
-        String option = fetchInput();
-        switch (option) {
-            case "1": {
-                Application application = x.get(0);
-                load(application);
-                initiateApplication(application);
-                break;
-            }
-            case "2": {
-                Application application = x.get(1);
-                load(application);
-                initiateApplication(application);
-                break;
-            }
-            case "3":
-                break;
-            default:
-                osInterface.putInput("Cannot perform that action.");
-                break;
-        }
+    //this function is used to load application into RAM based on user input.
+    private void loadApplication(Application application) {
+        load(application);
     }
-    private void initiateApplication(Application application){
-        osInterface.startApplication(application);
+
+    private void initiateApplication(Application application) {
+        osInterface.startApplication(application, this);
     }
+    private void closeApplication(){
+        osInterface.deleteAppFromRam();
+    }
+
     private void load(Application application) {
         osInterface.loadToRam(application);
     }
 
     public void boot() {
-        System.out.println("OS BOOTING........");
+        osInterface.putInput("OS BOOTING");
         try {
             Thread.sleep(1000);
-            System.out.println("BOOT PROCESS COMPLETE...\n");
+            osInterface.putInput("BOOT PROCESS COMPLETE...\n\n");
+            osInterface.putInput("****************************** WELCOME TO " + this.getClass().getSimpleName() + " OS ******************************");
         } catch (Exception ignored) {
 
         }
-        x = osInterface.fetchList();
+        x = osInterface.fetchApplications();
         // this function is used to load all the application when the computer is turned on.
         loadAllApps();
     }
 
     private void loadAllApps() {
-        osInterface.loadApplication(new Calculator(this));
-        osInterface.loadApplication(new GSearch(this));
+        osInterface.loadApplication(new Calculator());
+        osInterface.loadApplication(new GSearch());
     }
 
-    private void showListOfApps() {
+    private void launchPad() {
         int i;
         for (i = 0; i < x.size(); i++) {
-            System.out.println(i + 1 + "." + x.get(i).getName());
+            osInterface.putInput(i + 1 + "." + x.get(i).getName());
         }
-        System.out.println(i + 1 + "." + "Exit");
-    }
-
-    @Override
-    public String getCategory() {
-        return "OS";
+        osInterface.putInput(i + 1 + "." + "Exit");
     }
 }

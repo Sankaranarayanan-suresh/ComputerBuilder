@@ -16,7 +16,8 @@ public class Intel extends Processor {
     }
     @Override
     public String toString() {
-        return  "processorId='" + processorId + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "processorId='" + processorId + '\n' +
                 "processorName='" + processorName + '\n' +
                 "config='" + config + '\n' ;
     }
@@ -27,17 +28,12 @@ public class Intel extends Processor {
     }
 
     @Override
-    public String getConfig() {
-        return null;
-    }
-
-    @Override
     public double getPrice() {
         return 0;
     }
 
     @Override
-    public String getId() {
+    public String getConfig() {
         return null;
     }
 }

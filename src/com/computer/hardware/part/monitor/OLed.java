@@ -10,7 +10,8 @@ public class OLed extends Monitor {
 
     @Override
     public String toString() {
-        return "monitorId='" + monitorId + '\n' +
+        return this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "monitorId='" + monitorId + '\n' +
                 "monitorName='" + monitorName + '\n' +
                 "config='" + config + '\n';
     }
@@ -35,11 +36,6 @@ public class OLed extends Monitor {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return monitorId;
     }
 }
 

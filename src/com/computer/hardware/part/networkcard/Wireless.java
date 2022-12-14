@@ -4,10 +4,10 @@ import static java.lang.Math.abs;
 
 public class Wireless extends NetworkCard {
     private boolean status;
-    private String WiredCardId;
-    private String WiredCardName;
-    private String config;
-    private double price;
+    private final String WiredCardId;
+    private final String WiredCardName;
+    private final String config;
+    private final double price;
 
     public Wireless(String WiredCardName, String config, double price) {
         this.WiredCardId = "NCWL-" + abs(this.hashCode());
@@ -18,8 +18,9 @@ public class Wireless extends NetworkCard {
 
     @Override
     public String toString() {
-        return  "WiredCardId='" + WiredCardId + '\n' +
-                "WiredCardName='" + WiredCardName + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "NetworkCardId='" + WiredCardId + '\n' +
+                "NetworkCardName='" + WiredCardName + '\n' +
                 "config='" + config + '\n' ;
     }
     @Override
@@ -38,13 +39,8 @@ public class Wireless extends NetworkCard {
     }
 
     @Override
-    public String getId() {
-        return WiredCardId;
-    }
-
-    @Override
-    public void updateStatus() {
-        this.status = true;
+    public void toggleStatus() {
+        this.status = !this.status;
     }
 
     @Override

@@ -3,11 +3,11 @@ package com.computer.hardware.part.networkcard;
 import static java.lang.Math.abs;
 
 public class Wired extends NetworkCard {
-    private String WiredCardId;
-    private String WiredCardName;
-    private String config;
+    private final String WiredCardId;
+    private final String WiredCardName;
+    private final String config;
     private boolean status;
-    private double price;
+    private final double price;
 
     public Wired(String WiredCardName, String config, double price) {
         this.WiredCardId = "NCWI-" + abs(this.hashCode());
@@ -18,8 +18,9 @@ public class Wired extends NetworkCard {
 
     @Override
     public String toString() {
-        return  "WiredCardId='" + WiredCardId + '\n' +
-                "WiredCardName='" + WiredCardName + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "NetworkCardId='" + WiredCardId + '\n' +
+                "NetworkCardName='" + WiredCardName + '\n' +
                 "config='" + config + '\n';
     }
 
@@ -39,12 +40,7 @@ public class Wired extends NetworkCard {
     }
 
     @Override
-    public String getId() {
-        return WiredCardId;
-    }
-
-    @Override
-    public void updateStatus() {
+    public void toggleStatus() {
         this.status = !this.status;
     }
 

@@ -1,7 +1,6 @@
 package com.computer.hardware.part.storage.ROM;
 
 import com.computer.software.application.Application;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +11,10 @@ public class HDD extends ROM {
     private final String HDDName;
     private final String config;
     private final double price;
-    private ArrayList<Application> applications = new ArrayList<>();
+    private final ArrayList<Application> applications = new ArrayList<>();
 
-    public List returnLists() {
-        return applications;
+    public List<Application> returnApplications() {
+        return (List<Application>) applications.clone();
     }
 
     public HDD(String HDDName, String config, double price) {
@@ -27,7 +26,8 @@ public class HDD extends ROM {
 
     @Override
     public String toString() {
-        return  "HDDId='" + HDDId + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "HDDId='" + HDDId + '\n' +
                 "HDDName='" + HDDName + '\n' +
                 "config='" + config + '\n' ;
     }
@@ -49,10 +49,5 @@ public class HDD extends ROM {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return HDDId;
     }
 }

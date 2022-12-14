@@ -4,9 +4,10 @@ import com.computer.hardware.part.keyboard.Keyboard;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.motherboard.MotherBoard;
 import com.computer.hardware.part.networkcard.NetworkCard;
+import com.computer.hardware.part.processor.Processor;
+import com.computer.hardware.part.storage.RAM.RAM;
+import com.computer.hardware.part.storage.ROM.ROM;
 import com.computer.software.os.Os;
-import com.computer.hardware.part.storage.RAM.DDR3;
-import com.computer.hardware.part.storage.Storage;
 
 public class Computer {
     private final Monitor monitor;
@@ -14,30 +15,33 @@ public class Computer {
     private final MotherBoard motherBoard;
     private final NetworkCard networkCard;
     private final Os os;
-    private final DDR3 ram;
-    private final Storage storage;
+    private final RAM ram;
+    private final ROM rom;
+    private final Processor processor;
 
     public Computer(Monitor monitor, Keyboard keyboards, MotherBoard motherBoard, NetworkCard networkCard, Os os,
-                    Storage storage, DDR3 ram) {
+                    ROM rom, RAM ram, Processor processor) {
         this.monitor = monitor;
         this.keyboards = keyboards;
         this.motherBoard = motherBoard;
         this.networkCard = networkCard;
         this.os = os;
-        this.storage = storage;
+        this.rom = rom;
         this.ram = ram;
+        this.processor = processor;
     }
 
     @Override
     public String toString() {
         return "Computer{" +
-                "monitor=" + monitor.getId() +
-                " keyboards=" + keyboards.getId() +
-                ", motherBoard=" + motherBoard.getId() +
-                ", networkCard=" + networkCard.getId() +
-                ", os=" + os.getId() +
-                ", ram=" + ram.getId() +
-                ", storage=" + storage.getId() +
+                "monitor=" + monitor.getName() + monitor.getConfig()+
+                "\nkeyboards=" + keyboards.getName()+ keyboards.getConfig() +
+                "\nmotherBoard=" +motherBoard.getName()+ motherBoard.getConfig() +
+                "\nnetworkCard=" + networkCard.getName()+networkCard.getConfig() +
+                "\nos=" + os.getName()+os.getConfig() +
+                "\nram=" + ram.getName()+ram.getConfig() +
+                "\nrom=" + rom.getName()+rom.getConfig() +
+                "\nprocessor="+ processor.getName()+processor.getConfig()+
                 '}';
     }
 

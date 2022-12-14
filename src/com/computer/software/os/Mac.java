@@ -20,8 +20,9 @@ public class Mac extends Os {
 
     @Override
     public String toString() {
-        return  "macOsId='" + macOsId + '\n' +
-                "macOsName='" + macOsName + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "OsId='" + macOsId + '\n' +
+                "OsName='" + macOsName + '\n' +
                 "config='" + config + '\n';
     }
 
@@ -38,10 +39,5 @@ public class Mac extends Os {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return macOsId;
     }
 }

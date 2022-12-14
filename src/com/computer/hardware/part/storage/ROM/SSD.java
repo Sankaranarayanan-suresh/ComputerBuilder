@@ -12,7 +12,7 @@ public class SSD extends ROM {
     private final String SDDName;
     private final String config;
     private final double price;
-    private ArrayList<Application> applications = new ArrayList<>();
+    private final ArrayList<Application> applications = new ArrayList<>();
 
 
     public SSD(String SDDName, String config, double price) {
@@ -25,12 +25,13 @@ public class SSD extends ROM {
         applications.add(app);
     }
 
-    public List returnLists() {
+    public List<Application> returnApplications() {
         return applications;
     }
     @Override
     public String toString() {
-        return  "SDDId='" + SDDId + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "SDDId='" + SDDId + '\n' +
                 "SDDName='" + SDDName + '\n' +
                 "config='" + config + '\n';
     }
@@ -48,10 +49,5 @@ public class SSD extends ROM {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return SDDId;
     }
 }

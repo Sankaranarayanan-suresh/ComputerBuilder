@@ -17,7 +17,8 @@ public class Mechanical extends Keyboard {
 
     @Override
     public String toString() {
-        return  "MecKeyboardId='" + MecKeyboardId + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "MecKeyboardId='" + MecKeyboardId + '\n' +
                 "MecKeyboardName='" + MecKeyboardName + '\n' +
                 "config='" + config + '\n';
     }
@@ -37,8 +38,4 @@ public class Mechanical extends Keyboard {
         return price;
     }
 
-    @Override
-    public String getId() {
-        return MecKeyboardId;
-    }
 }

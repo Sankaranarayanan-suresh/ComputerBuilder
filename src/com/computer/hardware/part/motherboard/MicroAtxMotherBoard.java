@@ -9,9 +9,10 @@ public class MicroAtxMotherBoard extends MotherBoard {
     private final double price;
     @Override
     public String toString() {
-        return  "MotherBoardId = " + atxMotherBoardId + "\n"+
-                " MotherBoardName = "  + atxMotherBoardName + "\n"+
-                " config=" + config + "\n";
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "MotherBoardId = " + atxMotherBoardId + "\n"+
+                "MotherBoardName = "  + atxMotherBoardName + "\n"+
+                "config=" + config + "\n";
     }
 
     public MicroAtxMotherBoard(String motherBoardName, String config, double price) {
@@ -34,10 +35,5 @@ public class MicroAtxMotherBoard extends MotherBoard {
     @Override
     public double getPrice() {
         return price;
-    }
-
-    @Override
-    public String getId() {
-        return atxMotherBoardId;
     }
 }

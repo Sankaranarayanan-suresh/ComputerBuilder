@@ -6,8 +6,4 @@ public interface ComputerParts {
     String getConfig();
 
     double getPrice();
-
-    String getId();
-
-    String getCategory();
 }

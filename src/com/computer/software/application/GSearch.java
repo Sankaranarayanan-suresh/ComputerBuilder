@@ -5,8 +5,6 @@ import com.computer.software.os.ApplicationInterface;
 public class GSearch implements Application {
     private final String applicationName = "GSearch";
     private final String version = "1.0";
-    private final ApplicationInterface sys;
-
     @Override
     public String getName() {
         return applicationName;
@@ -16,13 +14,8 @@ public class GSearch implements Application {
     public String getVersion() {
         return version;
     }
-
-    public GSearch(ApplicationInterface sys) {
-        this.sys = sys;
-    }
-
-    @Override
-    public void run() {
+        @Override
+    public void run(ApplicationInterface sys) {
         sys.puts("WELCOME TO GSearch");
         while (true) {
             sys.puts("Search:");

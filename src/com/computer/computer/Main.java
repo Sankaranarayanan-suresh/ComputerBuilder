@@ -8,13 +8,14 @@ import com.computer.hardware.part.motherboard.MicroAtxMotherBoard;
 import com.computer.hardware.part.motherboard.MotherBoard;
 import com.computer.hardware.part.networkcard.NetworkCard;
 import com.computer.hardware.part.networkcard.Wired;
+import com.computer.hardware.part.storage.RAM.RAM;
+import com.computer.hardware.part.storage.ROM.ROM;
 import com.computer.software.os.Mac;
 import com.computer.software.os.Os;
 import com.computer.hardware.part.processor.Intel;
 import com.computer.hardware.part.processor.Processor;
 import com.computer.hardware.part.storage.ROM.HDD;
 import com.computer.hardware.part.storage.RAM.DDR3;
-import com.computer.hardware.part.storage.Storage;
 import com.util.Utils;
 
 public class Main {
@@ -26,14 +27,14 @@ public class Main {
         Keyboard keyboard = new Qwerty("mac", "Mechanical keyboard", 1000);
         NetworkCard nic = new Wired("mac", "parallel", 1000);
         Os os = new Mac("XP", "sdh", 1000, motherBoard);
-        Storage storage = new HDD("seagate", "5TB", 1000);
-        Processor processor = new Intel("intel", "dualcore", 1000);
-        DDR3 ramStorage = new DDR3("seagate", "5TB", 1000);
+        ROM rom = new HDD("seagate", "5TB", 1000);
+        Processor processor = new Intel("intel", "dualCore", 1000);
+        RAM ram = new DDR3("seagate", "5TB", 1000);
 
         Computer computer = null;
 
-        if (motherBoard != null && os != null && storage != null && processor != null) {
-            computer = new ComputerBuilder(motherBoard, os, storage, ramStorage, processor)
+        if (motherBoard != null && os != null && rom != null && processor != null && ram != null) {
+            computer = new ComputerBuilder(motherBoard, os, rom, ram, processor)
                     .setMonitor(monitor)
                     .setKeyboard(keyboard)
                     .setNetworkCard(nic)
@@ -44,7 +45,16 @@ public class Main {
         } else {
             System.out.println("1.Power On");
             if (Utils.getInteger() == 1) {
-                System.out.println("Powering On");
+                System.out.print("Powering On");
+                for(int i=0;i<4;i++){
+                    try {
+                        Thread.sleep(600);
+                        System.out.print(".");
+                    } catch (InterruptedException ignored) {
+
+                    }
+                }
+                System.out.println("\n");
                 computer.powerOn();
             } else {
                 System.out.println("Shutting down.......");

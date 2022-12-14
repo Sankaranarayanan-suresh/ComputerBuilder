@@ -9,7 +9,7 @@ public class DDR3 extends RAM {
     private final String RAMName;
     private final String config;
     private final double price;
-    private  Application application;
+    private Application application;
 
 
     public DDR3(String RAMName, String config, double price) {
@@ -21,19 +21,26 @@ public class DDR3 extends RAM {
 
     @Override
     public String toString() {
-        return  "RAMId='" + RAMId + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "RAMId='" + RAMId + '\n' +
                 "RAMName='" + RAMName + '\n' +
                 "config='" + config + '\n';
     }
 
-    public void storeApplication(Application application) {
+    public void write(Application application) {
        this.application = application;
     }
 
     @Override
-    public Application fetchApp(Application app) {
+    public Application read(Application app) {
         return this.application;
     }
+
+    @Override
+    public void remove() {
+        application = null;
+    }
+
     @Override
     public String getName() {
         return RAMName;
@@ -48,16 +55,4 @@ public class DDR3 extends RAM {
     public double getPrice() {
         return price;
     }
-
-    @Override
-    public String getId() {
-        return RAMId;
-    }
-
-    @Override
-    public String getCategory() {
-        return "RAM";
-    }
-
-
 }

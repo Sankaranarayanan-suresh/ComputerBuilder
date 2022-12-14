@@ -16,8 +16,9 @@ public class MiniItxMotherBoard extends MotherBoard {
 
     @Override
     public String toString() {
-        return  "atxMotherBoardId='" + atxMotherBoardId + '\n' +
-                "atxMotherBoardName='" + atxMotherBoardName + '\n' +
+        return  this.getClass().getSuperclass().getSimpleName()+"\n"+"\n"+
+                "MotherBoardId='" + atxMotherBoardId + '\n' +
+                "MotherBoardName='" + atxMotherBoardName + '\n' +
                 "config='" + config + '\n';
     }
 
@@ -36,8 +37,4 @@ public class MiniItxMotherBoard extends MotherBoard {
         return price;
     }
 
-    @Override
-    public String getId() {
-        return atxMotherBoardId;
-    }
 }
