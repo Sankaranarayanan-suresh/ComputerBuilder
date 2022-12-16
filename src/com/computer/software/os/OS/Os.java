@@ -1,9 +1,7 @@
-package com.computer.software.os;
+package com.computer.software.os.OS;
 
-import com.computer.software.application.Application;
+import com.computer.software.os.mac.application.Application;
 import com.computer.computer.ComputerParts;
-import com.computer.software.application.Calculator;
-import com.computer.software.application.GSearch;
 
 import java.util.*;
 
@@ -15,6 +13,7 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     public Os(OsInterface osInterface) {
         this.osInterface = osInterface;
     }
+    public  abstract List<Application> getApplication();
 
     @Override
     public String gets() {
@@ -145,7 +144,8 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     private void initiateApplication(Application application) {
         osInterface.startApplication(application, this);
     }
-    private void closeApplication(){
+
+    private void closeApplication() {
         osInterface.deleteAppFromRam();
     }
 
@@ -157,19 +157,22 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         osInterface.putInput("OS BOOTING");
         try {
             Thread.sleep(1000);
+
+            // this function is used to load all the application when the computer is turned on.
+            List<Application> defaultApps = getApplication();
+            loadAllApps(defaultApps);
+            x = osInterface.fetchApplications();
             osInterface.putInput("BOOT PROCESS COMPLETE...\n\n");
             osInterface.putInput("****************************** WELCOME TO " + this.getClass().getSimpleName() + " OS ******************************");
         } catch (Exception ignored) {
 
         }
-        x = osInterface.fetchApplications();
-        // this function is used to load all the application when the computer is turned on.
-        loadAllApps();
     }
 
-    private void loadAllApps() {
-        osInterface.loadApplication(new Calculator());
-        osInterface.loadApplication(new GSearch());
+    private void loadAllApps(List<Application> defaultApps) {
+        for(Application apps : defaultApps){
+            osInterface.loadApplication(apps);
+        }
     }
 
     private void launchPad() {

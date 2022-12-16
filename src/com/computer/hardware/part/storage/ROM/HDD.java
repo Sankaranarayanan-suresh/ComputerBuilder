@@ -1,6 +1,6 @@
 package com.computer.hardware.part.storage.ROM;
 
-import com.computer.software.application.Application;
+import com.computer.software.os.mac.application.Application;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.computer.hardware.part.storage.RAM;
 
-import com.computer.software.application.Application;
+import com.computer.software.os.mac.application.Application;
 
 import static java.lang.Math.abs;
 

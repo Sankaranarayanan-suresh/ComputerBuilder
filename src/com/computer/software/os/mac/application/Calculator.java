@@ -1,6 +1,7 @@
-package com.computer.software.application;
+package com.computer.software.os.mac.application;
 
-import com.computer.software.os.ApplicationInterface;
+import com.computer.software.os.OS.ApplicationInterface;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;

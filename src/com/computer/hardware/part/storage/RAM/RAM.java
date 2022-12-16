@@ -1,7 +1,7 @@
 package com.computer.hardware.part.storage.RAM;
 
 import com.computer.hardware.part.storage.Storage;
-import com.computer.software.application.Application;
+import com.computer.software.os.mac.application.Application;
 
 public abstract class RAM extends Storage {
     public abstract void write(Application app);

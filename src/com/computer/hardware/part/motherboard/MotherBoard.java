@@ -1,21 +1,21 @@
 package com.computer.hardware.part.motherboard;
 
 import com.computer.hardware.part.processor.ProcessorInterface1;
-import com.computer.software.application.Application;
+import com.computer.software.os.mac.application.Application;
 import com.computer.computer.ComputerParts;
 import com.computer.hardware.part.keyboard.Keyboard;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.networkcard.NetworkCard;
-import com.computer.software.os.ApplicationInterface;
-import com.computer.software.os.Os;
-import com.computer.software.os.OsInterface;
+import com.computer.software.os.OS.ApplicationInterface;
+import com.computer.software.os.OS.Os;
+import com.computer.software.os.OS.OsInterface;
 import com.computer.hardware.part.processor.Processor;
 import com.computer.hardware.part.storage.RAM.RAM;
 import com.computer.hardware.part.storage.ROM.ROM;
 
 import java.util.List;
 
-public abstract class MotherBoard implements ComputerParts, OsInterface , ProcessorInterface1 {
+public abstract class MotherBoard implements ComputerParts, OsInterface, ProcessorInterface1 {
     //ram,rom,processor,monitor,keyboard,os,networkCard
     private RAM ram;
     private ROM rom;
@@ -24,6 +24,7 @@ public abstract class MotherBoard implements ComputerParts, OsInterface , Proces
     private Keyboard keyboard;
     private Os os;
     private NetworkCard networkCard;
+
     public void addPart(ComputerParts computerPart) {
         if (computerPart instanceof Os) {
             os = (Os) computerPart;
@@ -40,46 +41,49 @@ public abstract class MotherBoard implements ComputerParts, OsInterface , Proces
         } else if (computerPart instanceof Processor) {
             processor = (Processor) computerPart;
         }
-        //computerParts.put(computerPart.getCategory(), computerPart);
     }
 
     public void biosBoot() {
-        initializer(this);
-        initializer(processor);
-        initializer(ram);
-        initializer(rom);
-        initializer(os);
-        initializer(networkCard);
-        initializer(keyboard);
-        initializer(monitor);
-        print("");
-        os.boot();
+            initializer(this);
+            initializer(processor);
+            initializer(ram);
+            initializer(rom);
+            initializer(os);
+            initializer(networkCard);
+            initializer(keyboard);
+            initializer(monitor);
+            print("");
+            os.boot();
     }
 
     private void initializer(ComputerParts part) {
-        if (part !=null){
-            try {
-                print("Initializing " + part.getClass().getSuperclass().getSimpleName());
-                Thread.sleep(600);
-            } catch (Exception ignored) {
+        try {
+            print("Checking " + part.getClass().getSuperclass().getSimpleName());
+            Thread.sleep(600);
+        } catch (Exception ignored) {
 
-            }
         }
+
     }
 
     public String getOverallConfiguration() {
-        return  rom.toString()+"\n"+
-                ram.toString()+"\n"+
-                os.toString()+"\n"+
-                processor.toString()+"\n"+
-                monitor.toString()+"\n"+
-                keyboard.toString()+"\n"+
-                networkCard.toString()+"\n"+
+        return rom.toString() + "\n" +
+                ram.toString() + "\n" +
+                os.toString() + "\n" +
+                processor.toString() + "\n" +
+                monitor.toString() + "\n" +
+                keyboard.toString() + "\n" +
+                networkCard.toString() + "\n" +
                 this;
     }
 
-    public void print(String text) {
-        this.monitor.display(text);
+    private void print(String text) {
+        try {
+            this.monitor.display(text);
+        }catch (RuntimeException e){
+           System.out.print("NO MONITOR!!!");
+           System.exit(1);
+        }
     }
 
     public void updateNetwork() {
@@ -88,17 +92,22 @@ public abstract class MotherBoard implements ComputerParts, OsInterface , Proces
 
     @Override
     public String getInput() {
-        if (keyboard != null) {
+        try {
             return keyboard.getInput();
+        }catch (RuntimeException e){
+            print("No Keyboard found.");
+            System.exit(1);
         }
-        print("No Keyboard found.");
+
         return null;
     }
-    public void startApplication(Application application, ApplicationInterface sys){
+
+    public void startApplication(Application application, ApplicationInterface sys) {
         Application app = ram.read(application);
-        processor.runApp(app,sys);
+        processor.runApp(app, sys);
     }
-    public void deleteAppFromRam(){
+
+    public void deleteAppFromRam() {
         ram.remove();
     }
 
@@ -113,6 +122,7 @@ public abstract class MotherBoard implements ComputerParts, OsInterface , Proces
         System.out.println("NO Network-Card found. ");
         return false;
     }
+
     @Override
     public void loadToRam(Application application) {
         ram.write(application);

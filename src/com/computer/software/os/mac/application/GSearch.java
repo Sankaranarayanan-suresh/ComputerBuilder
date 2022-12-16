@@ -1,10 +1,11 @@
-package com.computer.software.application;
+package com.computer.software.os.mac.application;
 
-import com.computer.software.os.ApplicationInterface;
+import com.computer.software.os.OS.ApplicationInterface;
 
 public class GSearch implements Application {
     private final String applicationName = "GSearch";
     private final String version = "1.0";
+
     @Override
     public String getName() {
         return applicationName;
@@ -14,7 +15,8 @@ public class GSearch implements Application {
     public String getVersion() {
         return version;
     }
-        @Override
+
+    @Override
     public void run(ApplicationInterface sys) {
         sys.puts("WELCOME TO GSearch");
         while (true) {

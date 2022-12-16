@@ -7,7 +7,7 @@ import com.computer.hardware.part.networkcard.NetworkCard;
 import com.computer.hardware.part.processor.Processor;
 import com.computer.hardware.part.storage.RAM.RAM;
 import com.computer.hardware.part.storage.ROM.ROM;
-import com.computer.software.os.Os;
+import com.computer.software.os.OS.Os;
 
 public class Computer {
     private final Monitor monitor;

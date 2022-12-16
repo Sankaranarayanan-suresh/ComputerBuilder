@@ -1,7 +1,7 @@
 package com.computer.hardware.part.storage.ROM;
 
 import com.computer.hardware.part.storage.Storage;
-import com.computer.software.application.Application;
+import com.computer.software.os.mac.application.Application;
 
 import java.util.List;
 

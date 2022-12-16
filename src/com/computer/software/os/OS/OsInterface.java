@@ -1,6 +1,7 @@
-package com.computer.software.os;
+package com.computer.software.os.OS;
 
-import com.computer.software.application.*;
+import com.computer.software.os.OS.ApplicationInterface;
+import com.computer.software.os.mac.application.*;
 import java.util.List;
 
 public interface OsInterface {
@@ -8,7 +9,7 @@ public interface OsInterface {
 
     void updateNetwork();
 
-    void startApplication(Application application,ApplicationInterface sys);
+    void startApplication(Application application, ApplicationInterface sys);
     void deleteAppFromRam();
 
     List<Application> fetchApplications();
