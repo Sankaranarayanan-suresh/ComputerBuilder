@@ -1,5 +1,7 @@
 package com.computer.hardware.part.motherboard;
 
+import com.computer.hardware.part.keyboard.Mechanical;
+import com.computer.hardware.part.keyboard.Qwerty;
 import com.computer.hardware.part.processor.ProcessorInterface1;
 import com.computer.software.os.mac.application.Application;
 import com.computer.computer.ComputerParts;
@@ -12,8 +14,10 @@ import com.computer.software.os.OS.OsInterface;
 import com.computer.hardware.part.processor.Processor;
 import com.computer.hardware.part.storage.RAM.RAM;
 import com.computer.hardware.part.storage.ROM.ROM;
+import com.util.Utils;
 
 import java.util.List;
+import java.util.Scanner;
 
 public abstract class MotherBoard implements ComputerParts, OsInterface, ProcessorInterface1 {
     //ram,rom,processor,monitor,keyboard,os,networkCard
@@ -44,16 +48,16 @@ public abstract class MotherBoard implements ComputerParts, OsInterface, Process
     }
 
     public void biosBoot() {
-            initializer(this);
-            initializer(processor);
-            initializer(ram);
-            initializer(rom);
-            initializer(os);
-            initializer(networkCard);
-            initializer(keyboard);
-            initializer(monitor);
-            print("");
-            os.boot();
+        initializer(this);
+        initializer(processor);
+        initializer(ram);
+        initializer(rom);
+        initializer(os);
+        initializer(networkCard);
+        initializer(keyboard);
+        initializer(monitor);
+        print("");
+        os.boot();
     }
 
     private void initializer(ComputerParts part) {
@@ -80,9 +84,9 @@ public abstract class MotherBoard implements ComputerParts, OsInterface, Process
     private void print(String text) {
         try {
             this.monitor.display(text);
-        }catch (RuntimeException e){
-           System.out.print("NO MONITOR!!!");
-           System.exit(1);
+        } catch (RuntimeException e) {
+            System.out.print("NO MONITOR!!!");
+            System.exit(1);
         }
     }
 
@@ -92,16 +96,17 @@ public abstract class MotherBoard implements ComputerParts, OsInterface, Process
 
     @Override
     public String getInput() {
-        try {
+        if (keyboard != null) {
             return keyboard.getInput();
-        }catch (RuntimeException e){
-            print("No Keyboard found.");
-            System.exit(1);
+        }else {
+            String keboardStatus = Utils.deviceManager();
+            if (keboardStatus.equals("k connected")) {
+                keyboard = new Qwerty("mac", "Mechanical keyboard", 1000);
+                return keboardStatus;
+            }
+            return keboardStatus;
         }
-
-        return null;
     }
-
     public void startApplication(Application application, ApplicationInterface sys) {
         Application app = ram.read(application);
         processor.runApp(app, sys);

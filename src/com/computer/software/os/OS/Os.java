@@ -13,7 +13,8 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     public Os(OsInterface osInterface) {
         this.osInterface = osInterface;
     }
-    public  abstract List<Application> getApplication();
+
+    public abstract List<Application> getApplication();
 
     @Override
     public String gets() {
@@ -26,13 +27,16 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     }
 
     private String fetchInput() {
-        return osInterface.getInput();
+            return osInterface.getInput();
     }
 
-    public void driverFunction() {
+    public void driverFunction()  {
+        boolean isValidInput = true;
         while (shutDown) {
-            osInterface.putInput("1.Launch Pad\n2.Settings\n3.Shut down");
-            makeDecision(fetchInput());
+            if (isValidInput){
+                osInterface.putInput("1.Launch Pad\n2.Settings\n3.Shut down");
+            }
+            isValidInput = makeDecision(fetchInput());
         }
     }
 
@@ -40,7 +44,7 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         return osInterface.checkNetStatus();
     }
 
-    private void makeDecision(String input) {
+    private boolean makeDecision(String input)  {
         try {
             switch (input) {
                 case "1": {
@@ -70,25 +74,32 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
                             osInterface.putInput("Cannot perform that action.");
                             break;
                     }
-                    break;
+                    return true;
                 }
                 case "2": {
                     settings();
-                    break;
+                    return true;
                 }
                 case "3":
                     osInterface.putInput("Shutting Down......");
                     // shutdown name change.
                     shutDown = false;
-                    break;
+                    return true;
+                case "":
+                    osInterface.putInput("No Keyboard Connected!!!");
+                    return false;
+                case "k connected":
+                    return true;
                 default:
                     osInterface.putInput("Cannot perform that action.");
-                    break;
+                    return true;
             }
         } catch (InputMismatchException e) {
             osInterface.putInput("ADD part keyboard.");
         }
+        return false;
     }
+
 
     private void settings() {
         label:
@@ -157,7 +168,6 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         osInterface.putInput("OS BOOTING");
         try {
             Thread.sleep(1000);
-
             // this function is used to load all the application when the computer is turned on.
             List<Application> defaultApps = getApplication();
             loadAllApps(defaultApps);
@@ -170,7 +180,7 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     }
 
     private void loadAllApps(List<Application> defaultApps) {
-        for(Application apps : defaultApps){
+        for (Application apps : defaultApps) {
             osInterface.loadApplication(apps);
         }
     }

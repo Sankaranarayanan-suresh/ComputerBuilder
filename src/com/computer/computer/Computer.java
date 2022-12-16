@@ -45,7 +45,7 @@ public class Computer {
                 '}';
     }
 
-    public void powerOn() {
+    public void powerOn()  {
         motherBoard.biosBoot();
         os.driverFunction();
     }

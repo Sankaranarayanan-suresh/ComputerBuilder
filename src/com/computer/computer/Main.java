@@ -1,6 +1,7 @@
 package com.computer.computer;
 
 import com.computer.hardware.part.keyboard.Keyboard;
+import com.computer.hardware.part.keyboard.Qwerty;
 import com.computer.hardware.part.monitor.Led;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.motherboard.MicroAtxMotherBoard;
@@ -19,7 +20,7 @@ import com.util.Utils;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         MotherBoard motherBoard = new MicroAtxMotherBoard("ASUS", "intel socket", 1000);
         Monitor monitor = new Led("Dell", "17 inch monitor", 1000);
         Keyboard keyboard = null;//new Qwerty("mac", "Mechanical keyboard", 1000);
@@ -39,7 +40,6 @@ public class Main {
             System.out.println(e.getMessage());
         }
         System.out.println("1.Power On");
-
         if (Utils.getInteger() == 1) {
             System.out.print("Powering On");
             for (int i = 0; i < 4; i++) {

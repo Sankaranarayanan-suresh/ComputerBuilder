@@ -1,5 +1,7 @@
 package com.util;
 
+import com.computer.hardware.part.keyboard.Qwerty;
+
 import java.util.Scanner;
 
 public class Utils {
@@ -11,6 +13,13 @@ public class Utils {
             System.out.println("Enter correct option!!!.");
             return getInteger();
         }
+    }
+    public static String deviceManager(){
+        String input = new Scanner(System.in).nextLine();
+        if(input.equals("Keyboard Connected")){
+            return "k connected";
+        }
+        return "";
     }
 
 }
