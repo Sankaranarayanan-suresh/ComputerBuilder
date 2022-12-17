@@ -1,10 +1,9 @@
-package com.computer.software.os.OS;
+package com.computer.software.os.os;
 
-import com.computer.software.os.OS.ApplicationInterface;
 import com.computer.software.os.mac.application.*;
 import java.util.List;
 
-public interface OsInterface {
+public interface MotherBoardDriver {
     String getOverallConfiguration();
 
     void updateNetwork();

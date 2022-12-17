@@ -1,5 +1,5 @@
 package com.computer.software.os.windows.bankapplication;
-import com.computer.software.os.OS.ApplicationInterface;
+import com.computer.software.os.os.ApplicationInterface;
 import com.computer.software.os.mac.application.Application;
 
 import java.util.Scanner;

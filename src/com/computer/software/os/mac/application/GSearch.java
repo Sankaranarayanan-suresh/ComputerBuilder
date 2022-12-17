@@ -1,6 +1,6 @@
 package com.computer.software.os.mac.application;
 
-import com.computer.software.os.OS.ApplicationInterface;
+import com.computer.software.os.os.ApplicationInterface;
 
 public class GSearch implements Application {
     private final String applicationName = "GSearch";

@@ -1,4 +1,4 @@
-package com.computer.software.os.OS;
+package com.computer.software.os.os;
 
 public interface ApplicationInterface {
     String gets();

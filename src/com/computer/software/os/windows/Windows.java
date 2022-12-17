@@ -1,7 +1,7 @@
 package com.computer.software.os.windows;
 
 import com.computer.hardware.part.motherboard.MotherBoard;
-import com.computer.software.os.OS.Os;
+import com.computer.software.os.os.Os;
 import com.computer.software.os.mac.application.Application;
 import com.computer.software.os.windows.bankapplication.BankApp;
 

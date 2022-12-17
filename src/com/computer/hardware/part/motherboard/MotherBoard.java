@@ -1,6 +1,5 @@
 package com.computer.hardware.part.motherboard;
 
-import com.computer.hardware.part.keyboard.Mechanical;
 import com.computer.hardware.part.keyboard.Qwerty;
 import com.computer.hardware.part.processor.ProcessorInterface1;
 import com.computer.software.os.mac.application.Application;
@@ -8,18 +7,17 @@ import com.computer.computer.ComputerParts;
 import com.computer.hardware.part.keyboard.Keyboard;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.networkcard.NetworkCard;
-import com.computer.software.os.OS.ApplicationInterface;
-import com.computer.software.os.OS.Os;
-import com.computer.software.os.OS.OsInterface;
+import com.computer.software.os.os.ApplicationInterface;
+import com.computer.software.os.os.Os;
+import com.computer.software.os.os.MotherBoardDriver;
 import com.computer.hardware.part.processor.Processor;
 import com.computer.hardware.part.storage.RAM.RAM;
 import com.computer.hardware.part.storage.ROM.ROM;
 import com.util.Utils;
 
 import java.util.List;
-import java.util.Scanner;
 
-public abstract class MotherBoard implements ComputerParts, OsInterface, ProcessorInterface1 {
+public abstract class MotherBoard implements ComputerParts, MotherBoardDriver, ProcessorInterface1 {
     //ram,rom,processor,monitor,keyboard,os,networkCard
     private RAM ram;
     private ROM rom;
@@ -99,12 +97,12 @@ public abstract class MotherBoard implements ComputerParts, OsInterface, Process
         if (keyboard != null) {
             return keyboard.getInput();
         }else {
-            String keboardStatus = Utils.deviceManager();
-            if (keboardStatus.equals("k connected")) {
+            String keyboardStatus = Utils.deviceManager();
+            if (keyboardStatus.equals("k connected")) {
                 keyboard = new Qwerty("mac", "Mechanical keyboard", 1000);
-                return keboardStatus;
+                return keyboardStatus;
             }
-            return keboardStatus;
+            return keyboardStatus;
         }
     }
     public void startApplication(Application application, ApplicationInterface sys) {

@@ -1,4 +1,4 @@
-package com.computer.software.os.OS;
+package com.computer.software.os.os;
 
 import com.computer.software.os.mac.application.Application;
 import com.computer.computer.ComputerParts;
@@ -6,42 +6,43 @@ import com.computer.computer.ComputerParts;
 import java.util.*;
 
 public abstract class Os implements ComputerParts, ApplicationInterface {
+
     private boolean shutDown = true;
-    private final OsInterface osInterface;
+    private final MotherBoardDriver motherBoardDriver;
     private List<Application> x;
 
-    public Os(OsInterface osInterface) {
-        this.osInterface = osInterface;
+    public Os(MotherBoardDriver osInterface) {
+        this.motherBoardDriver = osInterface;
     }
 
     public abstract List<Application> getApplication();
 
     @Override
     public String gets() {
-        return osInterface.getInput();
+        return motherBoardDriver.getInput();
     }
 
     @Override
     public void puts(Object text) {
-        osInterface.putInput(text);
+        motherBoardDriver.putInput(text);
     }
 
     private String fetchInput() {
-            return osInterface.getInput();
+            return motherBoardDriver.getInput();
     }
 
     public void driverFunction()  {
         boolean isValidInput = true;
         while (shutDown) {
             if (isValidInput){
-                osInterface.putInput("1.Launch Pad\n2.Settings\n3.Shut down");
+                motherBoardDriver.putInput("1.Launch Pad\n2.Settings\n3.Shut down");
             }
             isValidInput = makeDecision(fetchInput());
         }
     }
 
     public boolean checkNetworkStatus() {
-        return osInterface.checkNetStatus();
+        return motherBoardDriver.checkNetStatus();
     }
 
     private boolean makeDecision(String input)  {
@@ -71,7 +72,7 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
                         case "3":
                             break;
                         default:
-                            osInterface.putInput("Cannot perform that action.");
+                            motherBoardDriver.putInput("Cannot perform that action.");
                             break;
                     }
                     return true;
@@ -81,21 +82,21 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
                     return true;
                 }
                 case "3":
-                    osInterface.putInput("Shutting Down......");
+                    motherBoardDriver.putInput("Shutting Down......");
                     // shutdown name change.
                     shutDown = false;
                     return true;
                 case "":
-                    osInterface.putInput("No Keyboard Connected!!!");
+                    motherBoardDriver.putInput("No Keyboard Connected!!!");
                     return false;
                 case "k connected":
                     return true;
                 default:
-                    osInterface.putInput("Cannot perform that action.");
+                    motherBoardDriver.putInput("Cannot perform that action.");
                     return true;
             }
         } catch (InputMismatchException e) {
-            osInterface.putInput("ADD part keyboard.");
+            motherBoardDriver.putInput("ADD part keyboard.");
         }
         return false;
     }
@@ -104,39 +105,39 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     private void settings() {
         label:
         while (true) {
-            osInterface.putInput("1.Network\n2.About PC\n3.Exit");
+            motherBoardDriver.putInput("1.Network\n2.About PC\n3.Exit");
             String option = fetchInput();
             switch (option) {
                 case "1":
                     boolean netStatus = checkNetworkStatus();
                     if (netStatus) {
                         String status = "Off";
-                        osInterface.putInput("1.Turn-" + status + " Network\n2.Exit");
+                        motherBoardDriver.putInput("1.Turn-" + status + " Network\n2.Exit");
                         String netOption = fetchInput();
                         if (netOption.equals("1")) {
-                            osInterface.updateNetwork();
+                            motherBoardDriver.updateNetwork();
                         } else if (netOption.equals("2")) {
                             continue;
                         } else {
-                            osInterface.putInput("Cannot perform that action.");
+                            motherBoardDriver.putInput("Cannot perform that action.");
                         }
                     } else {
                         String status = "On";
-                        osInterface.putInput("1.Turn-" + status + " Network\n2.Exit");
+                        motherBoardDriver.putInput("1.Turn-" + status + " Network\n2.Exit");
                         String netOption = fetchInput();
                         if (netOption.equals("1")) {
-                            osInterface.updateNetwork();
+                            motherBoardDriver.updateNetwork();
                         } else if (netOption.equals("2")) {
                             continue;
                         } else {
-                            osInterface.putInput("Cannot perform that action.");
+                            motherBoardDriver.putInput("Cannot perform that action.");
                         }
                     }
                     break;
                 case "2":
                     try {
                         Thread.sleep(300);
-                        osInterface.putInput(osInterface.getOverallConfiguration());
+                        motherBoardDriver.putInput(motherBoardDriver.getOverallConfiguration());
                     } catch (Exception ignored) {
 
                     }
@@ -153,27 +154,27 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     }
 
     private void initiateApplication(Application application) {
-        osInterface.startApplication(application, this);
+        motherBoardDriver.startApplication(application, this);
     }
 
     private void closeApplication() {
-        osInterface.deleteAppFromRam();
+        motherBoardDriver.deleteAppFromRam();
     }
 
     private void load(Application application) {
-        osInterface.loadToRam(application);
+        motherBoardDriver.loadToRam(application);
     }
 
     public void boot() {
-        osInterface.putInput("OS BOOTING");
+        motherBoardDriver.putInput("OS BOOTING");
         try {
             Thread.sleep(1000);
             // this function is used to load all the application when the computer is turned on.
             List<Application> defaultApps = getApplication();
             loadAllApps(defaultApps);
-            x = osInterface.fetchApplications();
-            osInterface.putInput("BOOT PROCESS COMPLETE...\n\n");
-            osInterface.putInput("****************************** WELCOME TO " + this.getClass().getSimpleName() + " OS ******************************");
+            x = motherBoardDriver.fetchApplications();
+            motherBoardDriver.putInput("BOOT PROCESS COMPLETE...\n\n");
+            motherBoardDriver.putInput("****************************** WELCOME TO " + this.getClass().getSimpleName() + " OS ******************************");
         } catch (Exception ignored) {
 
         }
@@ -181,15 +182,15 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
 
     private void loadAllApps(List<Application> defaultApps) {
         for (Application apps : defaultApps) {
-            osInterface.loadApplication(apps);
+            motherBoardDriver.loadApplication(apps);
         }
     }
 
     private void launchPad() {
         int i;
         for (i = 0; i < x.size(); i++) {
-            osInterface.putInput(i + 1 + "." + x.get(i).getName());
+            motherBoardDriver.putInput(i + 1 + "." + x.get(i).getName());
         }
-        osInterface.putInput(i + 1 + "." + "Exit");
+        motherBoardDriver.putInput(i + 1 + "." + "Exit");
     }
 }

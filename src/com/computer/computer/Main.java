@@ -1,7 +1,6 @@
 package com.computer.computer;
 
 import com.computer.hardware.part.keyboard.Keyboard;
-import com.computer.hardware.part.keyboard.Qwerty;
 import com.computer.hardware.part.monitor.Led;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.motherboard.MicroAtxMotherBoard;
@@ -10,7 +9,7 @@ import com.computer.hardware.part.networkcard.NetworkCard;
 import com.computer.hardware.part.networkcard.Wired;
 import com.computer.hardware.part.storage.RAM.RAM;
 import com.computer.hardware.part.storage.ROM.ROM;
-import com.computer.software.os.OS.Os;
+import com.computer.software.os.os.Os;
 import com.computer.hardware.part.processor.Intel;
 import com.computer.hardware.part.processor.Processor;
 import com.computer.hardware.part.storage.ROM.HDD;
