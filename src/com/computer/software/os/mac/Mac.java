@@ -2,9 +2,10 @@ package com.computer.software.os.mac;
 
 import com.computer.hardware.part.motherboard.MotherBoard;
 import com.computer.software.os.os.Os;
-import com.computer.software.os.mac.application.Application;
+import com.computer.software.os.ApplicationInterface;
 import com.computer.software.os.mac.application.Calculator;
 import com.computer.software.os.mac.application.GSearch;
+import com.computer.software.os.os.OsApplicationInteractionInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Mac extends Os {
     private final String macOsName;
     private final String config;
     private final double price;
-    private final List<Application> macApps = new ArrayList<>();
+    private final List<ApplicationInterface> macApps = new ArrayList<>();
 
     public Mac(String macOsName, String config, double price, MotherBoard motherBoard) {
         super(motherBoard);
@@ -52,11 +53,11 @@ public class Mac extends Os {
     }
 
     @Override
-    public List<Application> getApplication() {
+    public List<ApplicationInterface> getApplication() {
         return macApps;
     }
 
-    public interface MacApps {
+    public interface MacApps extends ApplicationInterface {
 
     }
 }

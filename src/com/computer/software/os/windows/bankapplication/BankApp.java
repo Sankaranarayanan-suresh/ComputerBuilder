@@ -1,9 +1,9 @@
 package com.computer.software.os.windows.bankapplication;
-import com.computer.software.os.os.ApplicationInterface;
-import com.computer.software.os.mac.application.Application;
+import com.computer.software.os.os.OsApplicationInteractionInterface;
+import com.computer.software.os.ApplicationInterface;
 
 import java.util.Scanner;
-public class BankApp implements Application {
+public class BankApp implements ApplicationInterface {
 
     @Override
     public String getName() {
@@ -16,7 +16,7 @@ public class BankApp implements Application {
     }
 
     @Override
-    public void run(ApplicationInterface sys) {
+    public void run(OsApplicationInteractionInterface sys) {
         while (true) {
             Scanner sc = new Scanner(System.in);
             System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.*.*.*.*.*.*.*.Welcome to net-banking application*.*.*.*.*.*.*.*.");

@@ -1,6 +1,6 @@
 package com.computer.software.os.os;
 
-public interface ApplicationInterface {
+public interface OsApplicationInteractionInterface {
     String gets();
 
     void puts(Object text);

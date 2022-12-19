@@ -16,7 +16,7 @@ public class Utils {
     }
     public static String deviceManager(){
         String input = new Scanner(System.in).nextLine();
-        if(input.equals("Keyboard Connected")){
+        if(input.equals("keyboard connected")){
             return "k connected";
         }
         return "";

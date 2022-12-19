@@ -1,6 +1,6 @@
 package com.computer.hardware.part.storage.RAM;
 
-import com.computer.software.os.mac.application.Application;
+import com.computer.software.os.ApplicationInterface;
 
 import static java.lang.Math.abs;
 
@@ -9,7 +9,7 @@ public class DDR3 extends RAM {
     private final String RAMName;
     private final String config;
     private final double price;
-    private Application application;
+    private ApplicationInterface application;
 
 
     public DDR3(String RAMName, String config, double price) {
@@ -27,12 +27,12 @@ public class DDR3 extends RAM {
                 "config='" + config + '\n';
     }
 
-    public void write(Application application) {
+    public void write(ApplicationInterface application) {
        this.application = application;
     }
 
     @Override
-    public Application read(Application app) {
+    public ApplicationInterface read(ApplicationInterface app) {
         return this.application;
     }
 

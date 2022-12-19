@@ -1,6 +1,6 @@
 package com.computer.hardware.part.storage.ROM;
 
-import com.computer.software.os.mac.application.Application;
+import com.computer.software.os.ApplicationInterface;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +11,10 @@ public class HDD extends ROM {
     private final String HDDName;
     private final String config;
     private final double price;
-    private final ArrayList<Application> applications = new ArrayList<>();
+    private final ArrayList<ApplicationInterface> applications = new ArrayList<>();
 
-    public List<Application> returnApplications() {
-        return (List<Application>) applications.clone();
+    public List<ApplicationInterface> returnApplications() {
+        return applications;
     }
 
     public HDD(String HDDName, String config, double price) {
@@ -32,7 +32,7 @@ public class HDD extends ROM {
                 "config='" + config + '\n' ;
     }
 
-    public void addApplication(Application app) {
+    public void addApplication(ApplicationInterface app) {
         applications.add(app);
     }
 

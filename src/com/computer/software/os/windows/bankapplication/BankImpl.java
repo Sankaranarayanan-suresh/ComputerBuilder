@@ -2,7 +2,7 @@ package com.computer.software.os.windows.bankapplication;
 
 import java.util.ArrayList;
 
-abstract public class BankImpl implements IBank {
+public abstract class BankImpl implements IBank {
     //declaring arraylist as static because only doing like that we can use the variable static method
     ArrayList<Accounts> accounts = new ArrayList<>();
     @Override

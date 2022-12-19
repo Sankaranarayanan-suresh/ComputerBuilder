@@ -1,21 +1,21 @@
 package com.computer.software.os.os;
 
-import com.computer.software.os.mac.application.Application;
+import com.computer.hardware.part.motherboard.MotherBoardDriver;
+import com.computer.software.os.ApplicationInterface;
 import com.computer.computer.ComputerParts;
 
 import java.util.*;
 
-public abstract class Os implements ComputerParts, ApplicationInterface {
-
+public abstract class Os implements ComputerParts, OsApplicationInteractionInterface {
     private boolean shutDown = true;
     private final MotherBoardDriver motherBoardDriver;
-    private List<Application> x;
+    private List<ApplicationInterface> listOfApplications;
 
-    public Os(MotherBoardDriver osInterface) {
-        this.motherBoardDriver = osInterface;
+    public Os(MotherBoardDriver motherBoardDriver) {
+        this.motherBoardDriver = motherBoardDriver;
     }
 
-    public abstract List<Application> getApplication();
+    public abstract List<ApplicationInterface> getApplication();
 
     @Override
     public String gets() {
@@ -28,13 +28,13 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     }
 
     private String fetchInput() {
-            return motherBoardDriver.getInput();
+        return motherBoardDriver.getInput();
     }
 
-    public void driverFunction()  {
+    public void driverFunction() {
         boolean isValidInput = true;
         while (shutDown) {
-            if (isValidInput){
+            if (isValidInput) {
                 motherBoardDriver.putInput("1.Launch Pad\n2.Settings\n3.Shut down");
             }
             isValidInput = makeDecision(fetchInput());
@@ -45,62 +45,39 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         return motherBoardDriver.checkNetStatus();
     }
 
-    private boolean makeDecision(String input)  {
-        try {
-            switch (input) {
-                case "1": {
-                    launchPad();
-                    //load all applications into RAM.
-                    String option = fetchInput();
-                    switch (option) {
-                        case "1": {
-                            //loading calculator application
-                            Application application = x.get(0);
-                            loadApplication(application);
-                            initiateApplication(application);
-                            closeApplication();
-                            break;
-                        }
-                        case "2": {
-                            //loading gSearch application
-                            Application application = x.get(1);
-                            loadApplication(application);
-                            initiateApplication(application);
-                            closeApplication();
-                            break;
-                        }
-                        case "3":
-                            break;
-                        default:
-                            motherBoardDriver.putInput("Cannot perform that action.");
-                            break;
-                    }
+    private boolean makeDecision(String input) {
+        switch (input) {
+            case "1": {
+                launchPad();
+                String option = fetchInput();
+                if (Integer.parseInt(option) <= listOfApplications.size()) {
+                    ApplicationInterface application = listOfApplications.get(Integer.parseInt(option) - 1);
+                    loadApplication(application);
+                    initiateApplication(application);
+                    closeApplication();
+                } else {
                     return true;
                 }
-                case "2": {
-                    settings();
-                    return true;
-                }
-                case "3":
-                    motherBoardDriver.putInput("Shutting Down......");
-                    // shutdown name change.
-                    shutDown = false;
-                    return true;
-                case "":
-                    motherBoardDriver.putInput("No Keyboard Connected!!!");
-                    return false;
-                case "k connected":
-                    return true;
-                default:
-                    motherBoardDriver.putInput("Cannot perform that action.");
-                    return true;
+                return true;
             }
-        } catch (InputMismatchException e) {
-            motherBoardDriver.putInput("ADD part keyboard.");
+            case "2": {
+                settings();
+                return true;
+            }
+            case "3":
+                motherBoardDriver.putInput("Shutting Down......");
+                // shutdown name change.
+                shutDown = false;
+                return true;
+            case "":
+                return false;
+            case "k connected":
+                return true;
+            default:
+                motherBoardDriver.putInput("Cannot perform that action.");
+                return true;
         }
-        return false;
     }
-
 
     private void settings() {
         label:
@@ -149,11 +126,11 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
     }
 
     //this function is used to load application into RAM based on user input.
-    private void loadApplication(Application application) {
+    private void loadApplication(ApplicationInterface application) {
         load(application);
     }
 
-    private void initiateApplication(Application application) {
+    private void initiateApplication(ApplicationInterface application) {
         motherBoardDriver.startApplication(application, this);
     }
 
@@ -161,7 +138,7 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         motherBoardDriver.deleteAppFromRam();
     }
 
-    private void load(Application application) {
+    private void load(ApplicationInterface application) {
         motherBoardDriver.loadToRam(application);
     }
 
@@ -170,9 +147,8 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         try {
             Thread.sleep(1000);
             // this function is used to load all the application when the computer is turned on.
-            List<Application> defaultApps = getApplication();
-            loadAllApps(defaultApps);
-            x = motherBoardDriver.fetchApplications();
+            loadAllApps(getApplication());
+            listOfApplications = motherBoardDriver.fetchApplications();
             motherBoardDriver.putInput("BOOT PROCESS COMPLETE...\n\n");
             motherBoardDriver.putInput("****************************** WELCOME TO " + this.getClass().getSimpleName() + " OS ******************************");
         } catch (Exception ignored) {
@@ -180,16 +156,16 @@ public abstract class Os implements ComputerParts, ApplicationInterface {
         }
     }
 
-    private void loadAllApps(List<Application> defaultApps) {
-        for (Application apps : defaultApps) {
+    private void loadAllApps(List<ApplicationInterface> defaultApps) {
+        for (ApplicationInterface apps : defaultApps) {
             motherBoardDriver.loadApplication(apps);
         }
     }
 
     private void launchPad() {
         int i;
-        for (i = 0; i < x.size(); i++) {
-            motherBoardDriver.putInput(i + 1 + "." + x.get(i).getName());
+        for (i = 0; i < listOfApplications.size(); i++) {
+            motherBoardDriver.putInput(i + 1 + "." + listOfApplications.get(i).getName());
         }
         motherBoardDriver.putInput(i + 1 + "." + "Exit");
     }

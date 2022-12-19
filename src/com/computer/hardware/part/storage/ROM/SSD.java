@@ -1,6 +1,6 @@
 package com.computer.hardware.part.storage.ROM;
 
-import com.computer.software.os.mac.application.Application;
+import com.computer.software.os.ApplicationInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class SSD extends ROM {
     private final String SDDName;
     private final String config;
     private final double price;
-    private final ArrayList<Application> applications = new ArrayList<>();
+    private final ArrayList<ApplicationInterface> applications = new ArrayList<>();
 
 
     public SSD(String SDDName, String config, double price) {
@@ -21,11 +21,11 @@ public class SSD extends ROM {
         this.config = config;
         this.price = price;
     }
-    public void addApplication(Application app) {
+    public void addApplication(ApplicationInterface app) {
         applications.add(app);
     }
 
-    public List<Application> returnApplications() {
+    public List<ApplicationInterface> returnApplications() {
         return applications;
     }
     @Override

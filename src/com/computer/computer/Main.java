@@ -1,6 +1,7 @@
 package com.computer.computer;
 
 import com.computer.hardware.part.keyboard.Keyboard;
+import com.computer.hardware.part.keyboard.Qwerty;
 import com.computer.hardware.part.monitor.Led;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.motherboard.MicroAtxMotherBoard;
@@ -9,6 +10,7 @@ import com.computer.hardware.part.networkcard.NetworkCard;
 import com.computer.hardware.part.networkcard.Wired;
 import com.computer.hardware.part.storage.RAM.RAM;
 import com.computer.hardware.part.storage.ROM.ROM;
+import com.computer.software.os.mac.Mac;
 import com.computer.software.os.os.Os;
 import com.computer.hardware.part.processor.Intel;
 import com.computer.hardware.part.processor.Processor;
@@ -22,7 +24,7 @@ public class Main {
     public static void main(String[] args)  {
         MotherBoard motherBoard = new MicroAtxMotherBoard("ASUS", "intel socket", 1000);
         Monitor monitor = new Led("Dell", "17 inch monitor", 1000);
-        Keyboard keyboard = null;//new Qwerty("mac", "Mechanical keyboard", 1000);
+        Keyboard keyboard = new Qwerty("mac", "Mechanical keyboard", 1000);
         NetworkCard nic = new Wired("mac", "parallel", 1000);
         Os os = new Windows("XP", "sdh", 1000, motherBoard);
         ROM rom = new HDD("seagate", "5TB", 1000);
@@ -31,8 +33,8 @@ public class Main {
         Computer computer = null;
         try {
             computer = new ComputerBuilder(motherBoard, os, rom, ram, processor)
-                    .setMonitor(monitor)
-                    .setKeyboard(keyboard)
+//                    .setMonitor(monitor)
+                   .setKeyboard(keyboard)
                     .setNetworkCard(nic)
                     .build();
         } catch (RuntimeException e) {
@@ -49,6 +51,7 @@ public class Main {
 
                 }
             }
+
             System.out.println("\n");
             assert computer != null;
             computer.powerOn();

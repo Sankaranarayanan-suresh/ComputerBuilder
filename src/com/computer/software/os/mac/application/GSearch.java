@@ -1,8 +1,10 @@
 package com.computer.software.os.mac.application;
 
-import com.computer.software.os.os.ApplicationInterface;
+import com.computer.software.os.ApplicationInterface;
+import com.computer.software.os.mac.Mac;
+import com.computer.software.os.os.OsApplicationInteractionInterface;
 
-public class GSearch implements Application {
+public class GSearch implements Mac.MacApps {
     private final String applicationName = "GSearch";
     private final String version = "1.0";
 
@@ -17,7 +19,7 @@ public class GSearch implements Application {
     }
 
     @Override
-    public void run(ApplicationInterface sys) {
+    public void run(OsApplicationInteractionInterface sys) {
         sys.puts("WELCOME TO GSearch");
         while (true) {
             sys.puts("Search:");

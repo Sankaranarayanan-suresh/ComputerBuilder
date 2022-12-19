@@ -2,7 +2,8 @@ package com.computer.software.os.windows;
 
 import com.computer.hardware.part.motherboard.MotherBoard;
 import com.computer.software.os.os.Os;
-import com.computer.software.os.mac.application.Application;
+import com.computer.software.os.ApplicationInterface;
+import com.computer.software.os.os.OsApplicationInteractionInterface;
 import com.computer.software.os.windows.bankapplication.BankApp;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Windows extends Os {
     private final String WindowsOsName;
     private final String config;
     private final double price;
-    private final List<Application> windowsApps = new ArrayList<>();
+    private final List<ApplicationInterface> windowsApps = new ArrayList<>();
     public Windows(String WindowsOsName, String config, double price, MotherBoard motherBoard) {
         super(motherBoard);
         this.WindowsOsId = "OSWIN-" + abs(this.hashCode());
@@ -26,11 +27,12 @@ public class Windows extends Os {
     }
 
     @Override
-    public List<Application> getApplication() {
+    public List<ApplicationInterface> getApplication() {
         return windowsApps;
     }
 
-    public interface WindowsApps{
+    public interface WindowsApps extends ApplicationInterface {
+
 
     }
     @Override

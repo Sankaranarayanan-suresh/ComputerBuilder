@@ -2,14 +2,13 @@ package com.computer.hardware.part.motherboard;
 
 import com.computer.hardware.part.keyboard.Qwerty;
 import com.computer.hardware.part.processor.ProcessorInterface1;
-import com.computer.software.os.mac.application.Application;
+import com.computer.software.os.ApplicationInterface;
 import com.computer.computer.ComputerParts;
 import com.computer.hardware.part.keyboard.Keyboard;
 import com.computer.hardware.part.monitor.Monitor;
 import com.computer.hardware.part.networkcard.NetworkCard;
-import com.computer.software.os.os.ApplicationInterface;
+import com.computer.software.os.os.OsApplicationInteractionInterface;
 import com.computer.software.os.os.Os;
-import com.computer.software.os.os.MotherBoardDriver;
 import com.computer.hardware.part.processor.Processor;
 import com.computer.hardware.part.storage.RAM.RAM;
 import com.computer.hardware.part.storage.ROM.ROM;
@@ -80,12 +79,10 @@ public abstract class MotherBoard implements ComputerParts, MotherBoardDriver, P
     }
 
     private void print(String text) {
-        try {
-            this.monitor.display(text);
-        } catch (RuntimeException e) {
-            System.out.print("NO MONITOR!!!");
-            System.exit(1);
+        if (monitor != null) {
+             monitor.display(text);
         }
+
     }
 
     public void updateNetwork() {
@@ -105,8 +102,8 @@ public abstract class MotherBoard implements ComputerParts, MotherBoardDriver, P
             return keyboardStatus;
         }
     }
-    public void startApplication(Application application, ApplicationInterface sys) {
-        Application app = ram.read(application);
+    public void startApplication(ApplicationInterface application, OsApplicationInteractionInterface sys) {
+        ApplicationInterface app = ram.read(application);
         processor.runApp(app, sys);
     }
 
@@ -114,7 +111,7 @@ public abstract class MotherBoard implements ComputerParts, MotherBoardDriver, P
         ram.remove();
     }
 
-    public void loadApplication(Application app) {
+    public void loadApplication(ApplicationInterface app) {
         rom.addApplication(app);
     }
 
@@ -127,12 +124,12 @@ public abstract class MotherBoard implements ComputerParts, MotherBoardDriver, P
     }
 
     @Override
-    public void loadToRam(Application application) {
+    public void loadToRam(ApplicationInterface application) {
         ram.write(application);
     }
 
     @Override
-    public List<Application> fetchApplications() {
+    public List<ApplicationInterface> fetchApplications() {
         return rom.returnApplications();
     }
 
